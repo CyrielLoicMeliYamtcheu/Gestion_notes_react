@@ -3,10 +3,29 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Col, Container, Row } from 'react-bootstrap'
+import HomePage from './pages/Homepage'
+import Login from './pages/Login'
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    <Router>
+     
+      <Container>
+        <Row>
+          <Col>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<Login />} />
+              
+            </Routes>
+          </Col>
+        </Row>
+      </Container>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
