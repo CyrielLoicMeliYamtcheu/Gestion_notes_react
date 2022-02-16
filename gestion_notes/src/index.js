@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, Container, Row } from 'react-bootstrap'
 import HomePage from './pages/Homepage'
 import Login from './pages/Login'
+import InscriptionEtudiant from './pages/InscriptionEtudiant'
+import InscriptionEnseignant from './pages/InscriptionEnseignant'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,7 +22,8 @@ ReactDOM.render(
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<Login />} />
-              
+               <Route path="/inscriptionEn" element={<InscriptionEnseignant />} />
+                <Route path="/inscriptionEt" element={<InscriptionEtudiant />} />
             </Routes>
           </Col>
         </Row>
