@@ -1,5 +1,49 @@
 import { Col, Container, Row, Navbar, Form, Button, Nav, } from 'react-bootstrap'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+
 export default function InscriptionEtudiant(){
+
+    const [inputPrenom, setInputPrenom] = useState('')
+    const [inputNom, setInputNom] = useState('')
+    const [inputMatricule, setInputMatricule] = useState('')
+    const [inputEmail, setInputEmail] = useState('')
+    const [inputNiveau, setInputNiveau] = useState('')
+    const [inputSpecialite, setInputSpecialite] = useState('')
+    const [inputImage, setInputImage] = useState('')
+
+    const [form, setForm] = useState({
+    prenom: '',
+    nom: '',
+    email: '',
+    matricule: '',
+    niveau: '',
+    specialite: '',
+    image: ''
+  })
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    handleClick()
+  }, [])
+
+  function handleClick(){
+      let min = 1;
+      let max = 100;
+      let rand =  String(min + (Math.random() * (max-min))) 
+      alert("le matricule est ", rand)
+      //this.setState ({this.state.random : rand})
+   }
+   
+  async function save() {
+    await axios.post('http://localhost:3100/signup/', form)
+    setForm('')
+    // navigate('/produits')
+  }
+   
+
     return (
 // fluid
 
@@ -9,7 +53,10 @@ export default function InscriptionEtudiant(){
                 
                    <content contentContainerStyle={{flexGrow : 1, justifyContent : 'center'}}> 
                 
-                        <Form className='inscription-form'align="center">
+                        <Form className='inscription-form'align="center" onSubmit={(e) => {
+                        e.preventDefault()
+                        save()
+                        }}>
                             <h2 >ESPACE D'INSCRIPTION ETUDIANT</h2>
                             <div className='form-content'>
                             
@@ -22,7 +69,10 @@ export default function InscriptionEtudiant(){
                                         Prenom
                                     </Form.Label>
                                         <Col sm={10}>
-                                        <Form.Control type="prenom" placeholder="Prenom" />
+                                        <Form.Control type="prenom" placeholder="Prenom" 
+                                        value={inputPrenom}
+                                        onChange={(e) => setInputPrenom(e.target.value)}
+                                        />
                                         </Col>
                                 </Form.Group>
 
@@ -33,7 +83,10 @@ export default function InscriptionEtudiant(){
                                         Nom
                                         </Form.Label>
                                         <Col sm={10}>
-                                    <Form.Control type="nom" placeholder="Nom" />
+                                    <Form.Control type="nom" placeholder="Nom"
+                                     value={inputNom}
+                                     onChange={(e) => setInputNom(e.target.value)}
+                                    />
                                         </Col>
                                 </Form.Group>
 
@@ -43,7 +96,10 @@ export default function InscriptionEtudiant(){
                                         Email
                                         </Form.Label>
                                         <Col sm={10}>
-                                    <Form.Control type="email" placeholder="Email" />
+                                    <Form.Control type="email" placeholder="Email" 
+                                     value={inputEmail}
+                                     onChange={(e) => setInputEmail(e.target.value)}
+                                    />
                                         </Col>
                                 </Form.Group>
 
@@ -65,7 +121,8 @@ export default function InscriptionEtudiant(){
                                         Niveau
                                     </Form.Label>
                                         <Col sm={10}>
-                                        <Form.Select defaultValue="Choose..."placeholder="Niveau" >
+                                        <Form.Select defaultValue="Choose..."placeholder="Niveau"  value={inputNiveau}
+                                        onChange={(e) => setInputNiveau(e.target.value)}>
                                             <option>Master 1</option> 
                                             <option>Master 2</option> 
                                             <option>Licence</option>    
@@ -79,7 +136,8 @@ export default function InscriptionEtudiant(){
                                         Specialite
                                     </Form.Label>
                                         <Col sm={10}>
-                                        <Form.Select defaultValue="Choose..."placeholder="Specialite" >
+                                        <Form.Select defaultValue="Choose..."placeholder="Specialite"  value={inputSpecialite}
+                                        onChange={(e) => setInputSpecialite(e.target.value)}>
                                             <option>Cybersecurite</option> 
                                             <option>Data Analytics</option> 
                                             <option>Blockchain</option>    

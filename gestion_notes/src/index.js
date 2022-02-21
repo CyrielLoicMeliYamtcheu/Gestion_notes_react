@@ -10,6 +10,7 @@ import HomePage from './pages/Homepage'
 import Login from './pages/Login'
 import InscriptionEtudiant from './pages/InscriptionEtudiant'
 import InscriptionEnseignant from './pages/InscriptionEnseignant'
+import Footer from './components/AppFooter/Footer'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -28,6 +29,7 @@ ReactDOM.render(
           </Col>
         </Row>
       </Container>
+      <Footer />
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
