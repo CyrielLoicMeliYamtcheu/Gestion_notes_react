@@ -1,39 +1,44 @@
-import { Form, Button, Row, Col } from "react-bootstrap"
+import { Form, Button, Row, Col, Container } from "react-bootstrap"
 
-export default function Login(){
+export default function Login()  {
     return (
+        <Container>
 
-       <Form className = "mt-5">
-           <Row className="align-items-center">
-             <Col sm={6} className="my-1">
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-            
-            </Form.Text>
-        </Form.Group>
+            <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">ESPACE DE CONNEXION</h1>
+                    <Row className="mt-5">
+                   <Col lg ={5} md={6} sm={30} className="p-5 m-auto shadow rounded-lg">
+           
+   <Form>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+             <Form.Control type="email" placeholder="Enter email" />
+      </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+      <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
-        <Button variant="primary" type="submit" size="lg">
-            Se Connecter
-        </Button>
-       
-        <br></br>
-    <Form.Select className = "mt-3" aria-label="Default select example">
-  <option>Choisir son status</option>
-  <option value="1">Etudiant</option>
-  <option value="2">Enseignant</option>
- 
-</Form.Select>
-        </Col>
-        </Row>
-</Form>
+     </Form.Group>
+     <br></br>
+    <Button className="mb-3" variant="success btn-block" type="submit"> connection </Button><br></br>
+
+        <Form.Select aria-label="Default select example">
+             <option>choisir son statut </option>
+             <option value="1">Enseignant </option>
+             <option value="2">Etudiant</option>
+             
+      </Form.Select>
+  </Form>
+
+<br></br>
+<>
+
+  <Button variant="secondary">S'inscrire</Button>{' '}
+  
+</>
+
+       </Col>
+       </Row>
+       <h6 className="mt-5 p-5 text-center text-secondary"> Copyright 2022 ecole-it </h6>
+</Container>
     )
 }
