@@ -20,7 +20,8 @@ ReactDOM.render(
         <Row>
           <Col>
             <Routes>
-              <Route path="/" element={<HomePage />} />
+               
+               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<Login />} />
                <Route path="/inscriptionEn" element={<InscriptionEnseignant />} />
                 <Route path="/inscriptionEt" element={<InscriptionEtudiant />} />
