@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import InscriptionEtudiant from './pages/InscriptionEtudiant'
 import InscriptionEnseignant from './pages/InscriptionEnseignant'
 import Footer from './components/AppFooter/Footer'
+import {logo} from './loic.png'
 
 ReactDOM.render(
   <React.StrictMode>

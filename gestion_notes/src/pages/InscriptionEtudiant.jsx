@@ -1,9 +1,17 @@
-import { Col, Container, Row, Navbar, Form, Button, Nav, } from 'react-bootstrap'
-import { useState, useEffect } from 'react'
+import {
+    Col,
+    Container,
+    Row,
+    Navbar,
+    Form,
+    Button,
+    Nav
+} from 'react-bootstrap'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import {Link, useParams, useNavigate} from 'react-router-dom'
 
-export default function InscriptionEtudiant(){
+export default function InscriptionEtudiant() {
 
     const [inputPrenom, setInputPrenom] = useState('')
     const [inputNom, setInputNom] = useState('')
@@ -11,185 +19,356 @@ export default function InscriptionEtudiant(){
     const [inputEmail, setInputEmail] = useState('')
     const [inputNiveau, setInputNiveau] = useState('')
     const [inputSpecialite, setInputSpecialite] = useState('')
-    const [inputImage, setInputImage] = useState('')
+    const [inputPassword, setInputPassword] = useState('')
+    const [inputImage, setInputImage] = useState(null)
+    const [message, setMessage] = useState("");
+    // const [fileName, setFileName] = useState("Upload Boundary File");
+    const [niveaux, setNiveaux] = useState([])
+    const [specialites, setSpecialites] = useState([])
+
 
     const [form, setForm] = useState({
-    prenom: '',
-    nom: '',
-    email: '',
-    matricule: '',
-    niveau: '',
-    specialite: '',
-    image: ''
-  })
+        prenom: '',
+        nom: '',
+        email: '',
+        password: '',
+        matricule: '',
+        niveau: '',
+        specialite: '',
+        image: ''
+    })
 
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
-  useEffect(() => {
-    handleClick()
-  }, [])
+    function handleClick() {
+        let min = 10000;
+        let max = 90000;
+        // let rand =  min + (Math.random() * (max-min))
+        let rand = (Math.floor(Math.random() * min) + max).toString()
+        setInputMatricule(rand)
 
-  function handleClick(){
-      let min = 1;
-      let max = 100;
-      let rand =  String(min + (Math.random() * (max-min))) 
-      alert("le matricule est ", rand)
-      //this.setState ({this.state.random : rand})
-   }
-   
-  async function save() {
-    await axios.post('http://localhost:3100/signup/', form)
-    setForm('')
-    // navigate('/produits')
-  }
-   
+    }
+
+    async function save() {
+        add()
+        let res = await axios.post('http://localhost:3100/signup/', form)
+        console.log(res)
+        if (res.status === 201) {
+            setForm('')
+            reset()
+            setMessage("User created successfully");
+            navigate('/login')
+        } else {
+            reset()
+            setMessage("Some error occured");
+        }
+        // navigate('/produits')
+    }
+
+    function add() {
+        form.prenom = inputPrenom
+        form.nom = inputNom
+        form.email = inputEmail
+        form.password = inputPassword
+        form.matricule = inputMatricule
+        form.niveau = inputNiveau
+        form.specialite = inputSpecialite
+        form.image = inputImage
+        // alert(form.matricule)
+    }
+
+    function reset() {
+        setInputPrenom("")
+        setInputNom("")
+        setInputEmail("")
+        setInputPassword("")
+        setInputMatricule("")
+        setInputImage(null)
+        // form.specialite = ''
+        // form.image = ''
+    }
+
+    useEffect(() => {
+        getNiveau()
+        getSpecialite()
+        handleClick()
+    }, [])
+
+    async function getNiveau() {
+        const datas = await axios.get('http://localhost:3100/niveau')
+        console.log(datas.data[0])
+        if (datas.data !== null) 
+            setNiveaux(datas.data)
+
+        
+
+    }
+
+
+    let displayNiveaux = niveaux.map((item, indice) => {
+        return (
+            <option key={indice}>
+                {
+                item.nom
+            }</option>
+        )
+    })
+
+
+    async function getSpecialite() {
+        const datas = await axios.get('http://localhost:3100/specialite')
+        if (datas.data !== null) {
+            console.log(datas.data)
+            setSpecialites(datas.data)
+
+        }
+    }
+
+    let displaySpecialite = specialites.map((item, indice) => {
+        return (
+            <option key={indice}>
+                {
+                item.nom
+            }</option>
+        )
+    })
 
     return (
-// fluid
 
         <Navbar bg="light" expand="lg" class="navbar navbar-expand-lg navbar-light bg-light">
             <Row type="flex" justify="center" align="center">
-                <Container  >
-                
-                   <content contentContainerStyle={{flexGrow : 1, justifyContent : 'center'}}> 
-                
-                        <Form className='inscription-form'align="center" onSubmit={(e) => {
-                        e.preventDefault()
-                        save()
-                        }}>
-                            <h2 >ESPACE D'INSCRIPTION ETUDIANT</h2>
-                            <div className='form-content'>
-                            
-                                <Button variant="ESPACE D'INSCRIPTION ETUDIANT" size="lg" active>
-                                        
-                                </Button>{' '}
+                <Container>
 
-                                <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                    <Form.Label column sm={2}>
+                    <content contentContainerStyle={
+                        {
+                            flexGrow: 1,
+                            justifyContent: 'center'
+                        }
+                    }>
+
+                        <Form className='inscription-form' align="center"
+                            onSubmit={
+                                (e) => {
+                                    e.preventDefault()
+                                    save()
+                                }
+                        }>
+                            <h2>ESPACE D'INSCRIPTION ETUDIANT</h2>
+                            <div className='form-content'>
+
+                                <Button variant="ESPACE D'INSCRIPTION ETUDIANT" size="lg" active></Button>
+                                {' '}
+
+                                <Form.Group as={Row}
+                                    className="mb-3"
+                                    controlId="formHorizontalEmail">
+                                    <Form.Label column
+                                        sm={2}>
                                         Prenom
                                     </Form.Label>
-                                        <Col sm={10}>
-                                        <Form.Control type="prenom" placeholder="Prenom" 
-                                        value={inputPrenom}
-                                        onChange={(e) => setInputPrenom(e.target.value)}
-                                        />
-                                        </Col>
+                                    <Col sm={10}>
+                                        <Form.Control type="text" placeholder="Prenom"
+                                            value={inputPrenom}
+                                            onChange={
+                                                (e) => setInputPrenom(e.target.value)
+                                            }/>
+                                    </Col>
                                 </Form.Group>
 
 
-
-                                <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                    <Form.Label column sm={2}>
+                                <Form.Group as={Row}
+                                    className="mb-3"
+                                    controlId="formHorizontalEmail">
+                                    <Form.Label column
+                                        sm={2}>
                                         Nom
-                                        </Form.Label>
-                                        <Col sm={10}>
-                                    <Form.Control type="nom" placeholder="Nom"
-                                     value={inputNom}
-                                     onChange={(e) => setInputNom(e.target.value)}
-                                    />
-                                        </Col>
+                                    </Form.Label>
+                                    <Col sm={10}>
+                                        <Form.Control type="text" placeholder="Nom"
+                                            value={inputNom}
+                                            onChange={
+                                                (e) => setInputNom(e.target.value)
+                                            }/>
+                                    </Col>
                                 </Form.Group>
 
 
-                                <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                    <Form.Label column sm={2}>
+                                <Form.Group as={Row}
+                                    className="mb-3"
+                                    controlId="formHorizontalEmail">
+                                    <Form.Label column
+                                        sm={2}>
                                         Email
-                                        </Form.Label>
-                                        <Col sm={10}>
-                                    <Form.Control type="email" placeholder="Email" 
-                                     value={inputEmail}
-                                     onChange={(e) => setInputEmail(e.target.value)}
-                                    />
-                                        </Col>
+                                    </Form.Label>
+                                    <Col sm={10}>
+                                        <Form.Control type="email" placeholder="Email"
+                                            value={inputEmail}
+                                            onChange={
+                                                (e) => setInputEmail(e.target.value)
+                                            }/>
+                                    </Col>
                                 </Form.Group>
 
 
-                                <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                    <Form.Label column sm={2}>
+                                <Form.Group as={Row}
+                                    className="mb-3"
+                                    controlId="formHorizontalEmail">
+                                    <Form.Label column
+                                        sm={2}>
+                                        Password
+                                    </Form.Label>
+                                    <Col sm={10}>
+                                        <Form.Control type="password" placeholder="password"
+                                            value={inputPassword}
+                                            onChange={
+                                                (e) => setInputPassword(e.target.value)
+                                            }/>
+                                    </Col>
+                                </Form.Group>
+
+                                <Form.Group as={Row}
+                                    className="mb-3"
+                                    controlId="formHorizontalEmail">
+                                    <Form.Label column
+                                        sm={2}>
                                         Matricule
-                                        </Form.Label>
-                                        <Col sm={10}>
-                                    <Form.Control type="matricule" placeholder="Matricule" />
-                                        </Col>
+                                    </Form.Label>
+                                    <Col sm={10}>
+                                        <Form.Control type="text" placeholder="Matricule" readOnly
+                                            value={inputMatricule}
+                                            onChange={
+                                                (e) => setInputMatricule(e.target.value)
+                                            }/>
+                                    </Col>
                                 </Form.Group>
 
-                                
 
-
-                                <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                    <Form.Label column sm={2}>
+                                <Form.Group as={Row}
+                                    className="mb-3"
+                                    controlId="formHorizontalEmail">
+                                    <Form.Label column
+                                        sm={2}>
                                         Niveau
                                     </Form.Label>
-                                        <Col sm={10}>
-                                        <Form.Select defaultValue="Choose..."placeholder="Niveau"  value={inputNiveau}
-                                        onChange={(e) => setInputNiveau(e.target.value)}>
-                                            <option>Master 1</option> 
-                                            <option>Master 2</option> 
-                                            <option>Licence</option>    
-                                        </Form.Select> 
-                                         </Col>
+                                    <Col sm={10}>
+                                        <Form.Select defaultValue="Choose..." placeholder="Niveau"
+                                            value={inputNiveau}
+                                            onChange={
+                                                (e) => setInputNiveau(e.target.value)
+                                        }>
+
+                                            <option>Choix niveau</option>
+                                            {displayNiveaux} </Form.Select>
+                                    </Col>
                                 </Form.Group>
 
 
-                                <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                    <Form.Label column sm={2}>
+                                <Form.Group as={Row}
+                                    className="mb-3"
+                                    controlId="formHorizontalEmail">
+                                    <Form.Label column
+                                        sm={2}>
                                         Specialite
                                     </Form.Label>
-                                        <Col sm={10}>
-                                        <Form.Select defaultValue="Choose..."placeholder="Specialite"  value={inputSpecialite}
-                                        onChange={(e) => setInputSpecialite(e.target.value)}>
-                                            <option>Cybersecurite</option> 
-                                            <option>Data Analytics</option> 
-                                            <option>Blockchain</option>    
-                                        </Form.Select> 
-                                         </Col>
+                                    <Col sm={10}>
+                                        <Form.Select defaultValue="Choose..." placeholder="Specialite"
+                                            value={inputSpecialite}
+                                            onChange={
+                                                (e) => setInputSpecialite(e.target.value)
+                                        }>
+                                            <option>Choix specialité</option>
+                                            {displaySpecialite} </Form.Select>
+                                    </Col>
                                 </Form.Group>
 
 
-                                <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                    <Form.Label column sm={2}>
-                                        Charger votre photo
+                                <Form.Group as={Row}
+                                    className="mb-3"
+                                    controlId="formHorizontalEmail">
+                                    <Form.Label column
+                                        sm={2}>
+                                        Photo
                                     </Form.Label>
 
                                     <Col sm={10}>
-                                        
+
+
                                         <div>
-                                            <input class="form-control form-control-lg" id="formFileLg" type="file"></input>
+                                            <input class="form-control form-control-lg" id="formFileLg" type="file"
+                                                value={inputImage}
+                                                onChange={
+                                                    (e) => setInputImage(e.target.value)
+                                                }/>
                                             <label for="formFileLg" class="form-label"></label>
                                         </div>
 
                                     </Col>
                                 </Form.Group>
-                                    <Container>
-                                        <Row>
-                                            <Col sm={6}>
+                                <Container>
+                                    <div className="message">
+                                        {
+                                        message ? <p>{message}</p> : null
+                                    }</div>
 
-                                            <Button variant="secondary">Annuler</Button>{' '}&nbsp;
-                                            </Col>
-                                            <Col sm={4}>
-                                            <Button variant="success">S'inscrire</Button>{' '}&nbsp;
-                                            </Col>
-                                        </Row>
-                                    </Container>
-                    
+                                    <Row>
+                                        <Col sm={6}>
+
+                                            <Button type="reset"
+                                                onClick={
+                                                    // () => setForm(" ")
+                                                    reset
+                                                }
+                                                variant="secondary">
+                                                Annuler</Button>
+                                            {' '}&nbsp;
+                                        </Col>
+                                        <Col sm={4}>
+
+                                            <Button type="submit" variant="success">S'inscrire</Button>
+                                            {' '}&nbsp;
+                                        </Col>
+                                    </Row>
+
+
+                                </Container>
+
                             </div>
-                            
+
 
                         </Form>
+
                     </content>
 
                 </Container>
-            
+
             </Row>
 
         </Navbar>
 
-    
 
     );
 }
 
 
+/*  
+                                        
+                                    <Form.File
+                                        type="file"
+                                        className="custom-file-label"
+                                        id="inputGroupFile01"
+                                        label={inputImage}
+                                        onChange={(e) => setInputImage(e.target.files[0].name)}
+                                        custom
+                                    />
 
 
+    
+                                        <div>
+                                            <input class="form-control form-control-lg" id="formFileLg" type="file"
+                                            value={inputImage}
+                                            onChange={(e) => setInputImage(e.target.value)}
+                                            ></input>
+                                            <label for="formFileLg" class="form-label"></label>
+                                        </div>
 
+                                    */
