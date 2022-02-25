@@ -25,7 +25,7 @@ ReactDOM.render(
                <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<Login />} />
                <Route path="/inscriptionEn" element={<InscriptionEnseignant />} />
-                <Route path="/inscriptionEt" element={<InscriptionEtudiant />} />
+               <Route path="/inscriptionEt" element={<InscriptionEtudiant />} />
             </Routes>
           </Col>
         </Row>
