@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom'  
 import {Nav} from 'react-bootstrap'
 import { useState, useEffect } from 'react'
-import Header from './Header';
 import axios from 'axios';
 
-export default function NavBar(props){
+export default function NavBar(){
 
     const [state, setState] = useState("0")
 
