@@ -13,7 +13,6 @@ import GestionNote from './pages/GestionNote';
 import {Container, Row, Col} from 'react-bootstrap'
 import NavBar from './components/AppNavbar/NavBar';
 
-
 ReactDOM.render(
   <React.StrictMode>
     <Router>
