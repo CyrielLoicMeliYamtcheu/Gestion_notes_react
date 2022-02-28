@@ -12,6 +12,7 @@ import Footer from './components/AppFooter/Footer'
 import GestionNote from './pages/GestionNote';
 import {Container, Row, Col} from 'react-bootstrap'
 import NavBar from './components/AppNavbar/NavBar';
+import AffichageEtudiant from './pages/AffichageEtudiant'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,6 +27,8 @@ ReactDOM.render(
                <Route path="/inscriptionEn" element={<InscriptionEnseignant />} />
                 <Route path="/inscriptionEt" element={<InscriptionEtudiant />} />
                  <Route path="/gerer-notes" element={<GestionNote />} />
+                  <Route path="/liste-etudiant" element={<AffichageEtudiant />} />
+                   
             </Routes>
           </Col>
         </Row>
