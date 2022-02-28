@@ -13,6 +13,7 @@ import GestionNote from './pages/GestionNote';
 import {Container, Row, Col} from 'react-bootstrap'
 import NavBar from './components/AppNavbar/NavBar';
 import AffichageEtudiant from './pages/AffichageEtudiant'
+import UpdateNotes from './pages/UpdateNotes'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -27,8 +28,8 @@ ReactDOM.render(
                <Route path="/inscriptionEn" element={<InscriptionEnseignant />} />
                 <Route path="/inscriptionEt" element={<InscriptionEtudiant />} />
                  <Route path="/gerer-notes" element={<GestionNote />} />
-                  <Route path="/liste-etudiant" element={<AffichageEtudiant />} />
-                   
+                  <Route path="/liste-etudiant" element={<AffichageEtudiant />} /> 
+                  <Route path="/update-etudiant" element={<UpdateNotes />} />      
             </Routes>
           </Col>
         </Row>
