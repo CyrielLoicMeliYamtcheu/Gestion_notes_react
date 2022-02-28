@@ -37,7 +37,9 @@ export default function GestionNote(){
               if (datas.data !== null){
                 console.log("donnees : ", datas.data.matiere)
                 setCourse(datas.data.matiere)
-                course.map(item => setSpecialites(item.specialite)
+                 course.map(async item => { const dat = await item.specialite
+                   setSpecialites(dat)
+                  }
                 )
               }
             })      
@@ -78,6 +80,16 @@ export default function GestionNote(){
    })
   }  
 
+  function display(){
+    if(listeEtudiant !== null){
+      let data = listeEtudiant.map((item, indice) => {
+        console.log(indice + 1)
+        console.log(item.matricule)
+        console.log(note)
+      })
+    }
+  }
+
   let displayEtudiant = listeEtudiant.map((item, indice) => {
      return (
           <tr key = {indice + 1}>
@@ -86,10 +98,8 @@ export default function GestionNote(){
                 <td>{item.nom}</td>
                 <td>{item.prenom}</td>
                 <td>
-                  <Form.Control type="number" className={'form-control w-25'} value={note}
-                    onChange={
-                      (e) => setNote(e.target.value)
-                  }/>
+                  <Form.Control type="number" className={'form-control w-25'} 
+                    />
                 </td>
                 <td>
                   <Button type="button" className="btn btn-primary">Modifier</Button>
@@ -179,7 +189,7 @@ export default function GestionNote(){
 
             </tbody>
           </Table>
-        <Button type="submit" className="btn btn-success w-100">Enregistrer</Button>
+        <Button type="submit" onClick = {display} className="btn btn-success w-100">Enregistrer</Button>
         </div>
       </div>
     );

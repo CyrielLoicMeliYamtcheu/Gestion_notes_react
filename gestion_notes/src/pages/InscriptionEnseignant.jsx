@@ -1,16 +1,122 @@
 import { Col, Container, Row, Navbar, Form, Button, Nav, } from 'react-bootstrap'
 import {useState, useEffect} from 'react'
+import axios from 'axios'
+import {Link, useParams, useNavigate} from 'react-router-dom'
+import NavBarGestionNotes from '../components/AppNavbar/NavBarGestionNotes';
+
+
 export default function InscriptionEnseignant(){
     
-    const [field, setField] = useState([])  
+    const [courses, setCourse] = useState([]) 
+    const [matieres, setMatiere] = useState([])    
+    const [inputPrenom, setInputPrenom] = useState('')
+    const [inputNom, setInputNom] = useState('')
+    const [inputEmail, setInputEmail] = useState('')
+    const [inputNiveau, setInputNiveau] = useState('')
+    const [inputPassword, setInputPassword] = useState('')
+    const [message, setMessage] = useState("");
+     const [niveaux, setNiveaux] = useState([])
 
-    function show(){
-        field.map((item, indice) => {
-          console.log("hello")
-          console.log(indice)
-          console.log(item)
-        })
-      }
+    const navigate = useNavigate()
+
+    const [form, setForm] = useState({
+        prenom: '',
+        nom: '',
+        email: '',
+        password: '',
+        niveau: '',
+        matiere: [],
+      
+    })
+
+     useEffect(() => {
+        
+        getNiveau()
+       getCourse()
+
+    }, [])
+
+    /*
+        function show(){
+            course.map((item, indice) => {
+            console.log("hello")
+            console.log(indice)
+            console.log(item)
+            })
+        }
+
+    */
+
+    async function getNiveau() {
+        const datas = await axios.get('http://localhost:3100/niveau')
+        console.log(datas.data[0])
+        if (datas.data !== null) 
+            setNiveaux(datas.data)
+    }
+
+    async function getCourse(){
+        const datas = await axios.get('http://localhost:3100/matiere')
+            console.log("course : " , datas.data)
+            if(datas.data !== null){
+                
+                    setMatiere(datas.data)
+
+            }
+            
+      
+    }
+
+     let displayCourse = matieres.map((item, indice) => {
+        return (
+                 <option key = {indice}>{ item.intitule }</option>
+        )
+    }) 
+
+      async function save() {
+        add()
+        let res = await axios.post('http://localhost:3100/signupEnseignant/', form)
+        console.log(res)
+        if (res.status === 201) {
+            setForm('')
+            reset()
+            setMessage("User created successfully");
+            navigate('/login')
+        } else {
+            reset()
+            setMessage("Some error occured");
+        }
+        // navigate('/produits')
+    }
+
+
+     let displayNiveaux = niveaux.map((item, indice) => {
+        return (
+            <option key={indice}>
+                {
+                item.nom
+            }</option>
+        )
+    })
+
+   
+
+     function add() {
+        form.prenom = inputPrenom
+        form.nom = inputNom
+        form.email = inputEmail
+        form.password = inputPassword
+        form.niveau = inputNiveau
+        form.matiere = courses
+        
+    }
+
+     function reset() {
+        setInputPrenom("")
+        setInputNom("")
+        setInputEmail("")
+        setInputPassword("")
+      
+    }
 
 
         return (
@@ -26,7 +132,11 @@ export default function InscriptionEnseignant(){
                              <content contentContainerStyle={{flexGrow : 1, justifyContent : 'center'}}> 
                              
                              
-                                  <Form className='INSCRIPTION' >
+                                  <Form className='INSCRIPTION'  onSubmit={
+                                (e) => {
+                                    e.preventDefault()
+                                    save()
+                                } }>
                     
                                       <h1>ESPACE INSCRIPTION ENSEIGNANT</h1>
                               
@@ -43,7 +153,12 @@ export default function InscriptionEnseignant(){
                                                   Prénom :
                                               </Form.Label>
                                                   <Col sm={10}>
-                                                  <Form.Control type="prénom"  />
+                                                  <Form.Control type="prénom"  
+                                                   value={inputPrenom}
+                                                    onChange={
+                                                        (e) => setInputPrenom(e.target.value)
+                                                    }
+                                                  />
                                                   </Col>
                                           </Form.Group>
           
@@ -53,42 +168,57 @@ export default function InscriptionEnseignant(){
                                                   Nom :
                                                   </Form.Label>
                                                   <Col sm={10}>
-                                              <Form.Control type="nom"  />
+                                              <Form.Control type="nom"  
+                                                 value={inputNom}
+                                            onChange={
+                                                (e) => setInputNom(e.target.value)
+                                            }
+                                              
+                                              />
                                                   </Col>
                                           </Form.Group>
 
-
-                                          <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                              <Form.Label column sm={2}>
-                                                  Matricule :
-                                                  </Form.Label>
-                                                  <Col sm={10}>
-                                              <Form.Control type="email" />
-                                                  </Col>
-                                          </Form.Group>
-          
           
                                           <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                                               <Form.Label column sm={2}>
                                                   Email :
                                                   </Form.Label>
                                                   <Col sm={10}>
-                                              <Form.Control type="email" />
+                                              <Form.Control type="email" 
+                                                 value={inputEmail}
+                                            onChange={
+                                                (e) => setInputEmail(e.target.value)
+                                            }
+                                              />
                                                   </Col>
                                           </Form.Group>
           
+                                            
+                                             <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
+                                              <Form.Label column sm={2}>
+                                                  Password :
+                                                  </Form.Label>
+                                                  <Col sm={10}>
+                                              <Form.Control type="password" 
+                                                 value={inputPassword}
+                                            onChange={
+                                                (e) => setInputPassword(e.target.value)
+                                            }
+                                              />
+                                                  </Col>
+                                          </Form.Group>
           
                                           <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                                               <Form.Label column sm={2}>
                                                   Matière :
                                               </Form.Label>
                                                   <Col sm={10}>
-                                                <Form.Select defaultValue="Niveau" onClick = {show} className="form-control"
-                                             as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}>
-                                                  <option>Cybersécurité Clouding</option>
-                                                  <option>Big Data</option>
-                                                  <option>Devops</option>
-                                                  <option>BlockChain</option>
+                                                <Form.Select defaultValue="Matiere"  className="form-control"
+                                             as="select" multiple 
+                                             value={courses} onChange={e => 
+                                             setCourse([].slice.call(e.target.selectedOptions).map(item => item.value))}>
+                                                
+                                               { displayCourse }
                                                   </Form.Select>
                                                   </Col>
                                           </Form.Group>
@@ -99,23 +229,25 @@ export default function InscriptionEnseignant(){
                                                 Niveau :
                                             </Form.Label>
                                             <Col sm={10}> 
-                                            <Form.Select defaultValue="Niveau"  >
-                                             <option>1</option>
-                                             <option>2</option>
-                                             <option>3</option>
-                                             <option>4</option>
-                                             <option>5</option>
+                                            <Form.Select defaultValue="Niveau" 
+                                             value={inputNiveau}
+                                            onChange={
+                                                (e) => setInputNiveau(e.target.value)
+                                        }
+                                            >
+                                            { displayNiveaux }
+                                           
                                             </Form.Select>
                                             </Col> 
                                           </Form.Group>
-                                          
+                                          <div className="message">
+                                        {
+                                        message ? <p>{message}</p> : null
+                                    }</div>
 
-                                         
-                                            
-                                          
-                                              <Button variant="danger" as="input" type="button" value="Annuler" className="mt-5" />{' '}&nbsp;
+                                    <Button variant="danger" as="input" type="button"  onClick = {reset} value="Annuler" className="mt-5" />{' '}&nbsp;
                                       
-                                              <Button variant="success" as="input" type="submit" value="s'incrire" className="mt-5" />{' '}&nbsp;
+                                    <Button variant="success" as="input" type="submit" value="s'incrire" className="mt-5" />{' '}&nbsp;
           
           
                                       </div>
