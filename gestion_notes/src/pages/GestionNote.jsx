@@ -98,7 +98,7 @@ export default function GestionNote(){
                 <td>{item.nom}</td>
                 <td>{item.prenom}</td>
                 <td>
-                  <Form.Control type="number" className={'form-control w-25'} 
+                  <Form.Control type="number"  id={item.matricule} name={item.matricule} className={'form-control w-25'} 
                     />
                 </td>
                 <td>

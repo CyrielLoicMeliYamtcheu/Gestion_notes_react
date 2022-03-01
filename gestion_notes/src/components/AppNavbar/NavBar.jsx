@@ -37,21 +37,23 @@ useEffect(() => {
 
     return (
       <div>
-        <Nav class="navbar navbar-expand-lg navbar-light px-5" style={{
+        <Nav className="navbar navbar-expand-lg navbar-light px-5" style={{
         backgroundColor: '#a0d8eb',
         width: '100%',
         height: '60px',
         color: '#ffffff'
+      
       }}>
-          <div class="container-fluid">
+          <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             <img src="./logo.jpg" alt="..." height="50"/>
             </Link>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
             </button>  
             <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
-              <ul class="navbar-nav">
+              /</div><ul className="navbar-nav">
+                </ul>
 
     
           { state === "1" }
@@ -69,19 +71,32 @@ useEffect(() => {
                 <Link class="nav-link" to="/login">Se deconnecter</Link>
             </li>
             
-
             { state === "2" }
-                    <li class="nav-item">
+                <li class="nav-item">
                   <Link class="nav-link" to="/">Accueil</Link>
                 </li>
 
               <li class="nav-item">
-               
                   <Link class="nav-link" to="/consulter-notes">Consulter Notes</Link>
                 </li>
         
                 <li class="nav-item">
                   <Link class="nav-link" to="/login">Se deconnecter</Link>
+                </li>
+            <div className="collapse navbar-collapse flex-row-reverse" id="navbarNav">
+
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">Accueil</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/gerer-notes">Gerer les notes</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/etudiant">Etudiant</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Se deconnecter</Link>
                 </li>
 
                 { state === "0"}
@@ -92,12 +107,10 @@ useEffect(() => {
                 <li class="nav-item">
                   <Link class="nav-link" to="/login">Se connecter</Link>
                 </li>
-               
-               
-
+              
               </ul>
+              </div>
             </div>
-          </div>
         </Nav>
       </div>
     );
