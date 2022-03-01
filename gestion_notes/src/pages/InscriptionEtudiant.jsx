@@ -114,14 +114,14 @@ export default function InscriptionEtudiant() {
     })
 
 
-    async function getSpecialite() {
+   async function getSpecialite() {
         const datas = await axios.get('http://localhost:3100/specialite')
         if (datas.data !== null) {
             console.log(datas.data)
             setSpecialites(datas.data)
 
         }
-    }
+    } 
 
     let displaySpecialite = specialites.map((item, indice) => {
         return (

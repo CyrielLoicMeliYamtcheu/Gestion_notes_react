@@ -7,6 +7,7 @@ import axios from 'axios'
 export default function GestionNote(){
 
   const [field, setField] = useState([])
+  const [notes, setNotes] = useState([])
   const [message, setMessage] = useState("")
   const [course, setCourse] = useState([])
   const [infosTeacher, setInfosTeacher] = useState({})
@@ -16,15 +17,20 @@ export default function GestionNote(){
   const [note, setNote] = useState("")
 
   function show(){
+    /*
     field.map((item, indice) => {
       console.log("hello")
       console.log(indice)
       console.log(item)
      
-    })
+    }) */
+    
+  console.log(note)
   }
-  const navigate = useNavigate()
 
+  
+  const navigate = useNavigate()
+ 
   useEffect(() => {
 
       getCourseForTeacher()
@@ -37,8 +43,9 @@ export default function GestionNote(){
               if (datas.data !== null){
                 console.log("donnees : ", datas.data.matiere)
                 setCourse(datas.data.matiere)
-                 course.map(async item => { const dat = await item.specialite
-                   setSpecialites(dat)
+                 course.map(async item => { 
+                    const date = await item.specialite
+                    setSpecialites(date)
                   }
                 )
               }
@@ -90,16 +97,85 @@ export default function GestionNote(){
     }
   }
 
-  let displayEtudiant = listeEtudiant.map((item, indice) => {
-     return (
+  function Control(props){
+    let [note, setNote] = useState("")
+    note = props.nom
+    return(
+      <Form.Control type="number" className={'form-control w-25'} 
+                   value={note}
+
+                 onChange={
+                      (e) => setNote(e.target.value)
+                    }
+                  />
+    )
+  }
+
+  /*
+  function handleChange(index, e) {
+    const value = e.target.value
+    this.props.onChange(index, {... data[index], name: value})
+  }
+*/
+  const initialValues = {
+  matricule: "",
+  note: "",
+};
+
+  const [values, setValues] = useState(initialValues);
+  const handleInputChange = (e) => {
+    //const name = e.target.name 
+    //const value = e.target.value 
+    const { name, value } = e.target;
+
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
+  function Liste(){
+       return (
+        <Form>
+          <Form.Control
+            value={values.company}
+            onChange={handleInputChange}
+            name="company"
+            label="Company"
+          />
+          <Form.Control
+            value={values.position}
+            onChange={handleInputChange}
+            name="position"
+            label="Job Title"
+          />
+           
+          <Button type="submit"> Submit </Button>
+        </Form>
+
+    )
+  }
+
+  function disp(){
+   // console.log("position : ",values.position)
+   // console.log("company : " ,values.company)
+    console.log("note : ", values.note)
+  }
+
+  let displayEtudiant = listeEtudiant.map((item, indice) => { 
+    return (
           <tr key = {indice + 1}>
                 <th scope="row">{indice +1 }</th>
                 <td>{item.matricule}</td>
                 <td>{item.nom}</td>
                 <td>{item.prenom}</td>
                 <td>
-                  <Form.Control type="number" className={'form-control w-25'} 
-                    />
+                  
+                  <Form.Control className={'form-control w-25'} 
+                   value={values.note}
+                  name="note"
+                   onChange={handleInputChange}
+                  />
                 </td>
                 <td>
                   <Button type="button" className="btn btn-primary">Modifier</Button>
@@ -189,7 +265,9 @@ export default function GestionNote(){
 
             </tbody>
           </Table>
-        <Button type="submit" onClick = {display} className="btn btn-success w-100">Enregistrer</Button>
+           
+          
+        <Button type="submit" onClick = {disp} className="btn btn-success w-100">Enregistrer</Button>
         </div>
       </div>
     );
