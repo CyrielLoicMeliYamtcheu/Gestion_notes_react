@@ -4,29 +4,32 @@ import {Nav} from 'react-bootstrap'
 export default function NavBar(){
     return (
       <div>
-        <Nav class="navbar navbar-expand-lg navbar-light px-5" style={{
+        <Nav className="navbar navbar-expand-lg navbar-light px-5" style={{
         backgroundColor: '#a0d8eb',
         width: '100%',
         height: '60px',
         color: '#ffffff'
       }}>
-          <div class="container-fluid">
+          <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             <img src="./logo.jpg" alt="..." height="50"/>
             </Link>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
             </button>  
-            <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <Link class="nav-link" to="/">Accueil</Link>
+            <div className="collapse navbar-collapse flex-row-reverse" id="navbarNav">
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">Accueil</Link>
                 </li>
-                <li class="nav-item">
-                  <Link class="nav-link" to="/gerer-notes">Gerer les notes</Link>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/gerer-notes">Gerer les notes</Link>
                 </li>
-                <li class="nav-item">
-                  <Link class="nav-link" to="/login">Se deconnecter</Link>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/etudiant">Etudiant</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Se deconnecter</Link>
                 </li>
               </ul>
             </div>
