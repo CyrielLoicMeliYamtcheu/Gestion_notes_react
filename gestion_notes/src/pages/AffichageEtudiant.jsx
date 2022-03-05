@@ -1,3 +1,4 @@
+
 import { Col, Container, Row, Navbar, Form, Button, Nav, } from 'react-bootstrap'
 import {useState, useEffect} from 'react'
 export default function InscriptionEnseignant(){
@@ -40,10 +41,10 @@ export default function InscriptionEnseignant(){
           
                                           <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                                               <Form.Label column sm={2}>
-                                                  PrÃ©nom :
+                                                  Prénom :
                                               </Form.Label>
                                                   <Col sm={10}>
-                                                  <Form.Control type="prÃ©nom"  />
+                                                  <Form.Control type="prénom"  />
                                                   </Col>
                                           </Form.Group>
           
@@ -80,12 +81,12 @@ export default function InscriptionEnseignant(){
           
                                           <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                                               <Form.Label column sm={2}>
-                                                  MatiÃ¨re :
+                                                  Matière :
                                               </Form.Label>
                                                   <Col sm={10}>
                                                 <Form.Select defaultValue="Niveau" onClick = {show} className="form-control"
                                              as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}>
-                                                  <option>CybersÃ©curitÃ© Clouding</option>
+                                                  <option>Cybersécurité Clouding</option>
                                                   <option>Big Data</option>
                                                   <option>Devops</option>
                                                   <option>BlockChain</option>
@@ -134,4 +135,6 @@ export default function InscriptionEnseignant(){
           
               );
 
-        }
+
+
+}
