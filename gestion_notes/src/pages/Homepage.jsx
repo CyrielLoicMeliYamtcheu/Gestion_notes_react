@@ -1,13 +1,64 @@
-import React from 'react';
+import axios from 'axios'
+import {useState, useEffect} from 'react'
+import {Link, useParams, useLocation, useNavigate} from 'react-router-dom'
 import Carousel from 'react-bootstrap/Carousel'
+import { Container, Col, Row } from 'react-bootstrap'
 import Card from 'react-bootstrap/Card'
-import { Col, Row,} from 'react-bootstrap'
 
 
 
-export default function Homepage(){
+export default function HomePage(props) {
+  
+  /*
+  const id = useParams(); 
+  console.log("param", props?.match?.params); 
+  console.log("param 2", id);
 
-    return (
+*/
+    const [infosTeacher, setInfosTeacher] = useState({})
+   
+
+   // const userEns = useLocation();
+   // const {id} = this.props.route.params;
+   // const navigate = useNavigate()
+
+    useEffect(() => {
+        getInfosForOneTeacher()
+    }, [])
+
+
+    async function getInfosForOneTeacher() {
+      // const data = localStorage.getItem("apiRes1")
+      // let data = localStorage.getItem("apiRes1");
+      //  data = JSON.parse(data);
+
+      //  console.log("data userEns" , data)
+
+       // const datas = await axios.get('http://localhost:3100/authcheckerEns/6218c00812faa2772c5a1dea', {param: {session: data}})
+     /*   axios.get('http://localhost:3100/authchecker').then((datas) => {
+
+        console.log(datas)
+        console.log(datas.data)
+
+        })
+
+        */
+
+        let data = sessionStorage.getItem('user');
+        data = JSON.parse(data)
+        console.log(data)
+        console.log(data.nom)
+        console.log(data.prenom)
+        console.log(data.role)
+
+
+
+        
+     
+    }
+
+
+   return (
           <div className='mt-5'>
             <Carousel variant="dark">
             <Carousel.Item>
@@ -108,3 +159,5 @@ export default function Homepage(){
     )
 
 }
+
+
