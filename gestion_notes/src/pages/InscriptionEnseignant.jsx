@@ -36,16 +36,7 @@ export default function InscriptionEnseignant(){
 
     }, [])
 
-    /*
-        function show(){
-            course.map((item, indice) => {
-            console.log("hello")
-            console.log(indice)
-            console.log(item)
-            })
-        }
-
-    */
+   
 
     async function getNiveau() {
         const datas = await axios.get('http://localhost:3100/niveau')
@@ -60,9 +51,7 @@ export default function InscriptionEnseignant(){
             if(datas.data !== null){
                 
                     setMatiere(datas.data)
-
-            }
-            
+            }       
       
     }
 
@@ -85,7 +74,7 @@ export default function InscriptionEnseignant(){
             reset()
             setMessage("Some error occured");
         }
-        // navigate('/produits')
+        
     }
 
 

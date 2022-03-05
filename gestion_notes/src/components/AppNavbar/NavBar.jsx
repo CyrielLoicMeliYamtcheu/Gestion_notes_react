@@ -1,44 +1,53 @@
 import { Link } from 'react-router-dom'  
 import {Nav} from 'react-bootstrap'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from 'axios';
+import NavContext from '../ComponentContext';
 
-export default function NavBar(){
+export default function NavBar({etudiant, enseignant}){
 
-    const [state, setState] = useState("0")
-    const [choice, setChoices] = useState(false)
-    const [choix, setChoix] = useState(false)
-
+    const [user, setUser] = useState("")
+   
 useEffect(() => {
-    userConnecte()
+     userConnecte()
+  
 }, [])
 
-    // fonction de verification d'un user connecté
+    // // fonction de verification d'un user connecté
      function userConnecte(){
-
         let data = sessionStorage.getItem('user');
-       
         data = JSON.parse(data)
         console.log(data)
         console.log(data.nom)
         console.log(data.prenom)
         console.log(data.role)
 
+        
+      // let data = "Etudiant"
         if(data.role === "Etudiant"){
-                setState("1")
-                setChoices(true)
+                setUser("etudiant")
                  console.log("je suis connecté en tant que etudiant")
         }else if(data.role === "Enseignant"){
-                setState("2")
-                setChoices(false)
+                setUser("enseignant")
                 console.log("je suis connecté en tant que enseignant")
+        }else{
+            console.log("je suis !!!!")
         }
-        
-  
-
-
        
+        
     }
+
+    function show(user){
+        if(user === "enseignant"){
+            return (<Nav1 />)
+        }else if(user === "etudiant"){
+            return (<Nav2 />)
+        }else{
+           return (<Nav3 />)
+        }
+
+    }
+
 
     function Nav1(){
 
@@ -111,11 +120,8 @@ useEffect(() => {
             <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
               <ul class="navbar-nav">
 
-
-           
-            { choice ? <Nav1 /> : <Nav2 />} 
+        { show(user) }
         
-
               </ul>
             </div>
           </div>
@@ -123,10 +129,3 @@ useEffect(() => {
       </div>
     );
 }
-
-  // { state === "0" ? <Nav3 /> : state === "1" ? <Nav2 /> : <Nav /> }    { choice ? <Nav2 /> : <Nav />}
-          
-//       { choice ? <Nav1 /> : <Nav2 />}   
-//      { choix ? <Nav3 /> : choice ? <Nav2 /> : <Nav />}
-      
-         

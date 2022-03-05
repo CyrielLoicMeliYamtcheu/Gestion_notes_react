@@ -1,274 +1,277 @@
 import NavBarGestionNotes from '../components/AppNavbar/NavBarGestionNotes';
-import { Form, Button, Table } from 'react-bootstrap'
-import { useState, useEffect } from 'react';
+import {Form, Button, Table} from 'react-bootstrap'
+import {useState, useEffect} from 'react';
 import {Link, useParams, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
-export default function GestionNote(){
+export default function GestionNote() {
 
-  const [field, setField] = useState([])
-  const [notes, setNotes] = useState([])
-  const [message, setMessage] = useState("")
-  const [course, setCourse] = useState([])
-  const [infosTeacher, setInfosTeacher] = useState({})
-  const [specialite, setSpecialites] = useState([])
-  const [listeEtudiant, setListeEtudiant] = useState([])
-  const [special, setSpecial] = useState("")
-  const [note, setNote] = useState("")
+    const [field, setField] = useState([])
+    const [notes, setNotes] = useState([])
+    const [message, setMessage] = useState("")
+    const [course, setCourse] = useState([])
+    const [infosTeacher, setInfosTeacher] = useState({})
+    const [specialite, setSpecialites] = useState([])
+    const [listeEtudiant, setListeEtudiant] = useState([])
+    const [special, setSpecial] = useState("")
+    const [matieres, setMatieres] = useState("")
+    const [note, setNote] = useState("")
+    const [newNote, setNewNote] = useState();
+    const [indiceActuel, setIndiceActuel] = useState()
 
-  function show(){
-    /*
-    field.map((item, indice) => {
-      console.log("hello")
-      console.log(indice)
-      console.log(item)
-     
-    }) */
-    
-  console.log(note)
-  }
 
-  
-  const navigate = useNavigate()
- 
-  useEffect(() => {
+    const navigate = useNavigate()
 
-      getCourseForTeacher()
-      
+    useEffect(() => {
+
+        getCourseForTeacher()
+
+
     }, [])
 
-     async function getCourseForTeacher() {
-        await axios.get('http://localhost:3100/enseignant/6218c00812faa2772c5a1dec').then((datas) => { 
-              console.log(datas.data)
-              if (datas.data !== null){
-                console.log("donnees : ", datas.data.matiere)
-                setCourse(datas.data.matiere)
-                 course.map(async item => { 
-                    const date = await item.specialite
-                    setSpecialites(date)
-                  }
-                )
-              }
-            })      
+    async function getCourseForTeacher() {
+
+        let data = sessionStorage.getItem('user');
+        data = JSON.parse(data)
+        console.log(data)
+        if (data.role === "Enseignant") {
+            console.log(data.id)
+            console.log(data.nom)
+            console.log(data.prenom)
+            console.log(data.role)
+            // 6218c00812faa2772c5a1dec
+            await axios.get('http://localhost:3100/enseignant/' + data.id).then((datas) => {
+                console.log(datas.data)
+                if (datas.data !== null) {
+                    console.log("donnees : ", datas.data.matiere);
+                    const tempMatiere = datas.data.matiere;
+                    setCourse(tempMatiere);
+                    tempMatiere.map(async item => {
+                        const date = await item.specialite
+                        setSpecialites(date)
+                    })
+                }
+            })
+        }
     }
 
-   
-   console.log("taille liste specialite" , specialite.length)
+    console.log("taille liste specialite", specialite)
 
     let displaySpecialite = specialite.map((item, indice) => {
-      return (
-        <option key = {indice}>{item.nom}</option>
-      )
+        return (
+            <option key={indice}>
+                {
+                item.nom
+            }</option>
+        )
     })
 
 
-    let displayCourse = course.map((item2,indice2) => { 
-      return( 
-      <option key = {indice2}>{item2.intitule}</option>
-      )
+    let displayCourse = course.map((item2, indice2) => {
+        return (
+            <option key={indice2}>
+                {
+                item2.intitule
+            }</option>
+        )
     })
-   
 
-     async function getInfosForOneTeacher() {
-        const datas = await axios.get('http://localhost:3100/authcheckerEns')
-        console.log(datas.data)
-        console.log(datas.Enseignant)
-        console.log(datas.Enseignant.email)
-        if (datas.data !== null) 
-            setInfosTeacher(datas.Enseignant.email)
+
+    // async function getInfosForOneTeacher() {
+    //     const datas = await axios.get('http://localhost:3100/authcheckerEns')
+    //     console.log(datas.data)
+    //     console.log(datas.Enseignant)
+    //     console.log(datas.Enseignant.email)
+    //     if (datas.data !== null)
+    //         setInfosTeacher(datas.Enseignant.email)
+    // }
+
+
+    async function getEtudiantByNiveauSpecialite() {
+
+        await axios.get('http://localhost:3100/etudiants/', {
+            params: {
+                specialite: special
+            }
+        }).then((datas) => {
+            if (datas !== null) {
+                console.log("liste etudiants ", datas.data)
+                setListeEtudiant(datas.data)
+            }
+        })
     }
 
-  async function getEtudiantByNiveauSpecialite(){
-    await axios.get('http://localhost:3100/etudiant/'+ special).then((datas) => {
-      if(datas !== null ){
-        console.log("liste etudiants " , datas.data)
-        setListeEtudiant(datas.data)
-      }
-   })
-  }  
 
-  function display(){
-    if(listeEtudiant !== null){
-      let data = listeEtudiant.map((item, indice) => {
-        console.log(indice + 1)
-        console.log(item.matricule)
-        console.log(note)
-      })
+    async function saveNotes(id, data) {
+
+        await axios.put('http://localhost:3100/notes/' + id, data).then((datas) => {
+
+            console.log(datas)
+        })
     }
-  }
 
-  function Control(props){
-    let [note, setNote] = useState("")
-    note = props.nom
-    return(
-      <Form.Control type="number" className={'form-control w-25'} 
-                   value={note}
 
-                 onChange={
-                      (e) => setNote(e.target.value)
+    const handleInputChange = (indice) => {
+        console.log({listeEtudiant})
+        console.log({indice})
+
+        alert(matieres)
+
+        const tempNote = {
+            matiere: matieres,
+            note: newNote
+        };
+
+        tempNote.matiere = matieres
+        console.log("matieres", tempNote.matiere)
+        let currentEtudient = listeEtudiant[indice];
+        currentEtudient.notes.push(tempNote);
+        console.log("id : ", currentEtudient._id)
+        console.log({currentEtudient})
+
+        // TODO: update la liste des etudiants
+        console.log({listeEtudiant})
+
+        saveNotes(currentEtudient._id, tempNote)
+
+
+    };
+
+
+    let displayEtudiant = listeEtudiant.map((item, indice) => {
+        return (
+            <tr key={
+                indice + 1
+            }>
+                <th scope="row">
+                    {
+                    indice + 1
+                }</th>
+                <td>{
+                    item.matricule
+                }</td>
+                <td>{
+                    item.nom
+                }</td>
+                <td>{
+                    item.prenom
+                }</td>
+                <td>
+
+                    <Form.Control className={'form-control w-25'}
+
+                        name="note"
+                        disabled={
+                            indiceActuel === indice ? false : true
+                        }
+                        onChange={
+                            (e) => setNewNote(e.target.value)
+                        }/>
+
+
+                    <Button type="button"
+                        onClick={
+                            () => handleInputChange(indice)
+                        }
+                        className="btn btn-primary">
+                        Enregistrer
+                    </Button>
+
+                </td>
+                <td>
+                    <Button type="button" className="btn btn-primary"
+                        onClick={
+                            () => setIndiceActuel(indice)
+                    }>Modifier</Button>
+                </td>
+            </tr>
+        )
+
+    })
+
+    // async function save_note() {
+
+    //     let res = await axios.post('http://localhost:3100/note/',)
+    //     console.log(res)
+    //     if (res.status === 201) {
+
+    //         setMessage("User created successfully");
+    //         navigate('/login')
+    //     } else {
+
+    //         setMessage("Some error occured");
+    //     }
+
+    // }
+
+
+    return (
+        <div className='mt-5'>
+            <NavBarGestionNotes nom="GESTION DES NOTES"/>
+            <div className='container'
+                style={
+                    {marginTop: '50px'}
+            }>
+                <Form className='mt-4'>
+                    <div className="row">
+                        <div className="form-group col-5">
+                            <Form.Label>Matière</Form.Label>
+                            <Form.Select className="form-control"
+                                value={matieres}
+                                onChange={
+                                    (e) => setMatieres(e.target.value)
+                            }>
+                                <option>
+                                    Choix Matieres</option>
+                                {displayCourse} </Form.Select>
+
+                        </div>
+                        <div className="form-group col-5">
+                            <Form.Label>Filière</Form.Label>
+                            <Form.Select className="form-control"
+                                value={special}
+                                onChange={
+                                    (e) => setSpecial(e.target.value)
+                            }>
+                                <option>
+                                    Choix Filieres</option>
+                                {displaySpecialite} </Form.Select>
+                        </div>
+
+                        <Button onClick={getEtudiantByNiveauSpecialite}
+                            className="btn btn-info col-2 h-50"
+                            style={
+                                {marginTop: '22px'}
+                        }>Afficher liste des eleves</Button>
+
+                    </div>
+
+                </Form>
+                <Table className="table table-hover table-bordered"
+                    style={
+                        {marginTop: '22px'}
                     }
-                  />
-    )
-  }
+                    id="myTable">
+                    <thead className='table-primary'>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Matricule</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prenom</th>
+                            <th scope="col">Notes</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody> {displayEtudiant} </tbody>
+                </Table>
 
-  /*
-  function handleChange(index, e) {
-    const value = e.target.value
-    this.props.onChange(index, {... data[index], name: value})
-  }
-*/
-  const initialValues = {
-  matricule: "",
-  note: "",
-};
 
-  const [values, setValues] = useState(initialValues);
-  const handleInputChange = (e) => {
-    //const name = e.target.name 
-    //const value = e.target.value 
-    const { name, value } = e.target;
-
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
-
-  function Liste(){
-       return (
-        <Form>
-          <Form.Control
-            value={values.company}
-            onChange={handleInputChange}
-            name="company"
-            label="Company"
-          />
-          <Form.Control
-            value={values.position}
-            onChange={handleInputChange}
-            name="position"
-            label="Job Title"
-          />
-           
-          <Button type="submit"> Submit </Button>
-        </Form>
-
-    )
-  }
-
-  function disp(){
-   // console.log("position : ",values.position)
-   // console.log("company : " ,values.company)
-    console.log("note : ", values.note)
-  }
-
-  let displayEtudiant = listeEtudiant.map((item, indice) => { 
-    return (
-          <tr key = {indice + 1}>
-                <th scope="row">{indice +1 }</th>
-                <td>{item.matricule}</td>
-                <td>{item.nom}</td>
-                <td>{item.prenom}</td>
-                <td>
-                  
-                  <Form.Control className={'form-control w-25'} 
-                   value={values.note}
-                  name="note"
-                   onChange={handleInputChange}
-                  />
-                </td>
-                <td>
-                  <Button type="button" className="btn btn-primary">Modifier</Button>
-                </td>
-        </tr>
-     )
-      
-  })
-
-  async function save_note() {
-        
-        let res = await axios.post('http://localhost:3100/note/', )
-        console.log(res)
-        if (res.status === 201) {
-          
-            setMessage("User created successfully");
-            navigate('/login')
-        } else {
-          
-            setMessage("Some error occured");
-        }
-        // navigate('/produits')
-    }
-  
-  /*  function checkDay() {
-        //let now = new Date();
-        let myTab = document.getElementById('myTable');
-        console.log(myTab);
-        //let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        //let today = days[now.getDay()];
-        for (let i = 0; i < listeEtudiant.rows.length; i++) {
-            let content = myTab.rows.item(i).cells;
-            console.log("content is : " , content);
-           
-        }
-    }
-    */
-
-    return (
-      <div className='mt-5'>
-        <NavBarGestionNotes nom = "GESTION DES NOTES"/>
-        <div className='container' style={{
-            marginTop: '50px',
-          }}>
-          <Form className='mt-4' >
-            <div className="row">
-                <div className="form-group col-5">
-                  <Form.Label>Matière</Form.Label>
-                  <Form.Select className="form-control" 
-                  as="select" multiple value={field} onChange={e => 
-                    setField([].slice.call(e.target.selectedOptions).map(item => item.value))}
-                  >
-                    { displayCourse }         
-                    
-                  </Form.Select>
-                </div>
-                <div className="form-group col-5">
-                  <Form.Label>Filière</Form.Label>
-                  <Form.Select className="form-control"  value={special}
-                    onChange={
-                      (e) => setSpecial(e.target.value)
-                    } >
-                    { displaySpecialite }
-                  </Form.Select>
-                </div>
-                
-                <Button onClick={getEtudiantByNiveauSpecialite}  className="btn btn-info col-2 h-50" style={{marginTop:'22px'}}>Afficher liste des eleves</Button>
-               
+                <Button type="submit"
+                    onClick={
+                        navigate('/')
+                    }
+                    className="btn btn-success w-100">Enregistrer</Button>
             </div>
-   
-          </Form>
-          <Table className="table table-hover table-bordered" style={{marginTop:'22px'}} 
-          id = "myTable">
-            <thead className='table-primary'>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Matricule</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Prenom</th>
-                <th scope="col">Notes</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-              { displayEtudiant }
-
-            </tbody>
-          </Table>
-           
-          
-        <Button type="submit" onClick = {disp} className="btn btn-success w-100">Enregistrer</Button>
         </div>
-      </div>
     );
 }

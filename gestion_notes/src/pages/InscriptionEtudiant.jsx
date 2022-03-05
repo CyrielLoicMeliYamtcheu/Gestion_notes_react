@@ -64,7 +64,7 @@ export default function InscriptionEtudiant() {
             reset()
             setMessage("Some error occured");
         }
-        // navigate('/produits')
+       
     }
 
     function add() {
@@ -86,8 +86,7 @@ export default function InscriptionEtudiant() {
         setInputPassword("")
         setInputMatricule("")
         setInputImage(null)
-        // form.specialite = ''
-        // form.image = ''
+        
     }
 
     useEffect(() => {

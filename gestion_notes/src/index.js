@@ -9,16 +9,18 @@ import Login from './pages/Login'
 import InscriptionEtudiant from './pages/InscriptionEtudiant'
 import InscriptionEnseignant from './pages/InscriptionEnseignant'
 import Footer from './components/AppFooter/Footer'
-import GestionNote from './pages/GestionNote';
+import GestionNote from './pages/GestionNote'
 import {Container, Row, Col} from 'react-bootstrap'
+import Etudiant from './pages/Etudiant';
 import NavBar from './components/AppNavbar/NavBar';
 import AffichageEtudiant from './pages/AffichageEtudiant'
 import UpdateNotes from './pages/UpdateNotes'
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-    <NavBar />
+    <NavBar/> 
       <Container>
         <Row>
           <Col>
@@ -30,6 +32,7 @@ ReactDOM.render(
                  <Route path="/gerer-notes" element={<GestionNote />} />
                   <Route path="/liste-etudiant" element={<AffichageEtudiant />} /> 
                   <Route path="/update-etudiant" element={<UpdateNotes />} />      
+                 <Route path="/etudiant" element={<Etudiant />} />
             </Routes>
           </Col>
         </Row>

@@ -19,93 +19,62 @@ export default function Login(props) {
     const myStorage = window.sessionStorage;
     const navigate = useNavigate()
 
-     async function getInfosForOneTeacher(data) {
-          //  const datas = await axios.get('http://localhost:3100/authcheckerEns', {params : {query : data}})
-             await axios.get('http://localhost:3100/authchecker', {params : {user : data}}).then((datas) => {
-                 console.log("HELLO ", datas)
-                console.log("BONJOUR ", datas.data)
-            })
-     }
+    async function getInfosForOneTeacher(data) { // const datas = await axios.get('http://localhost:3100/authcheckerEns', {params : {query : data}})
+        await axios.get('http://localhost:3100/authchecker', {
+            params: {
+                user: data
+            }
+        }).then((datas) => {
+            console.log("HELLO ", datas)
+            console.log("BONJOUR ", datas.data)
+        })
+    }
 
+     async function getInfosForOneTeacher2() {
+      // const data = localStorage.getItem("apiRes1")
+      // let data = localStorage.getItem("apiRes1");
+      //  data = JSON.parse(data);
 
-     async function login() {
-        add()    
-         await axios.post("http://localhost:3100/signinuser/", form)
-        .then(res => {
-            
-             console.log("data from teacher " , res.data)
-             console.log("data from teacher 2 " , res.data.user)
-             
+      //  console.log("data userEns" , data)
+
+      //  const datas = await axios.get('http://localhost:3100/authcheckerEns/6218c00812faa2772c5a1dea', {param: {session: data}})
+        axios.get('http://localhost:3100/authchecker').then((datas) => {
+
+        console.log("HOME PAGE DATA" ,datas)
+        console.log("DATA HOME " , datas.data)
+
+    })
+
+}
+
+    async function login() {
+        add()
+        await axios.post("http://localhost:3100/signinuser/", form).then(res => {
+
+            console.log("data from teacher ", res.data)
+            console.log("data from teacher 2 ", res.data.user)
+
             if (res.status === 200) {
                 setForm('')
                 reset()
                 setMessage("User Login successfully");
-                if(res.data.user.role === "Enseignant"){
+                if (res.data.user.role === "Enseignant") {
                     sessionStorage.setItem('user', JSON.stringify(res.data.user));
-                     // localStorage.setItem("apiRes1", JSON.stringify(res1.data.sessUser))
-                     navigate('/')
-                }else if(res.data.user.role === "Etudiant"){
+
+                    navigate('/')
+                } else if (res.data.user.role === "Etudiant") {
                     sessionStorage.setItem('user', JSON.stringify(res.data.user));
-                     // localStorage.setItem("apiRes1", JSON.stringify(res1.data.sessUser))
-                     navigate('/')
+                    navigate('/')
                 }
 
-                // getInfosForOneTeacher(res1.data.Enseignant)
-               
             } else {
                 reset()
                 setMessage("Some error occured");
             }
         })
-        
+
     }
 
-   /*  
-    async function login() {
-        add()
-      
-        if(choix_status === "/inscriptionEn"){
-            
-         await axios.post("http://localhost:3100/signinEnseignant/", form)
-        .then(res1 => {
-            
-             console.log("data from teacher " , res1.data)
-             console.log("data from teacher 2 " , res1.data.Enseignant)
-             
-            if (res1.status === 200) {
-                setForm('')
-                reset()
-                setMessage("User Login successfully");
-                getInfosForOneTeacher(res1.data.Enseignant)
-                localStorage.setItem("apiRes1", JSON.stringify(res1.data.Enseignant))
-            // console.log("userSession ", res1.data.sessUser)
-                navigate('/')
-            } else {
-                reset()
-                setMessage("Some error occured");
-            }
-        })
-        
-       
-            
-    }else{
-        let res = await axios.post('http://localhost:3100/signin/', form)
-        
-        console.log(res)
-        
-        if (res.status === 200) {
-            setForm('')
-            reset()
-            setMessage("User Login successfully");
-            navigate('/')
-        } else {
-            reset()
-            setMessage("Some error occured");
-        }
-    }
-        
-    }
-*/
 
     function add() {
         form.email = inputEmail
@@ -153,7 +122,7 @@ export default function Login(props) {
                         </Form.Group>
                         <br></br>
                         <Button className="mb-3" variant="success btn-block" type="submit">
-                            connection
+                            connexion
                         </Button>
                         <br></br>
 
