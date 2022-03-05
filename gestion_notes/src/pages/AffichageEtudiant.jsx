@@ -1,140 +1,80 @@
 
-import { Col, Container, Row, Navbar, Form, Button, Nav, } from 'react-bootstrap'
-import {useState, useEffect} from 'react'
-export default function InscriptionEnseignant(){
-    
-    const [field, setField] = useState([])  
-
-    function show(){
-        field.map((item, indice) => {
-          console.log("hello")
-          console.log(indice)
-          console.log(item)
-        })
-      }
-
-
-        return (
-          // fluid
-          
-                  <Navbar bg="info" expand="lg" class="navbar navbar-expand-lg navbar-light bg-info" className="mt-5" >
-                      <img src="https://image.shutterstock.com/image-photo/happy-french-teacher-explaining-foreign-260nw-2066856038.jpg" height={400} width={500} className='mr-3'></img>
-                      <Row type="flex" justify="center" align="center" >
+import Table from 'react-bootstrap/Table'
+import { Navbar, Form, Button, Nav, } from 'react-bootstrap'
+ 
+export default function AffichageEtudiant(){
+    return (
+    <div>      
+        <Table striped bordered hover responsive="sm">
+  <thead>
+    <tr>
+      <th>Matricules</th>
+      <th>Prénoms</th>
+      <th>Noms</th>
+      <th>Spécialité</th>
+      <th>E-mail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EIT0012022</td>
+      <td>Waly</td>
+      <td>Ebongom</td>
+      <td>Cybersécuritéclouding</td>
+      <td>ebongomwaly@gmail.com</td>
+    </tr>
+    <tr>
+      <td>EIT0022022</td>
+      <td>Théophile</td>
+      <td>Yantchou</td>
+      <td>Cybersécuritéclouding</td>
+      <td>@</td>
+    </tr>
+    <tr>
+      <td>EIT0032022</td>
+      <td>Cyriel</td>
+      <td>Yamtcheu</td>
+      <td>BigData</td>
+      <td>@</td>
+    </tr>
+    <tr>
+      <td>EIT0042022</td>
+      <td>Lydie</td>
+      <td>Douanla</td>
+      <td>BigData</td>
+      <td>@</td>
+    </tr>
+    <tr>
+      <td>EIT0052022</td>
+      <td>Pascal</td>
+      <td>Minou</td>
+      <td>Cybersécurité&clouding</td>
+      <td>@</td>
+    </tr>
+  </tbody>
               
-    
-                          <Container className="container-fluid py-5" >
-                          
-                             <content contentContainerStyle={{flexGrow : 1, justifyContent : 'center'}}> 
-                             
-                             
-                                  <Form className='INSCRIPTION' >
-                    
-                                      <h1>ESPACE INSCRIPTION ENSEIGNANT</h1>
-                              
-                                    
-                                      <div className='form-content'>
-
-                                      
-                                          <Button variant="ESPACE INSCRIPTION ETUDIANT" size="lg" active >
-                                                  
-                                          </Button>{' '}
+  
+</Table>
+    <div class="container my-4"> 
+      <div class="border border-light p-3 mb-4">
+ 
+ 
+ 
+        <div class="text-center">
           
-                                          <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                              <Form.Label column sm={2}>
-                                                  Prénom :
-                                              </Form.Label>
-                                                  <Col sm={10}>
-                                                  <Form.Control type="prénom"  />
-                                                  </Col>
-                                          </Form.Group>
-          
-          
-                                          <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                              <Form.Label column sm={2}>
-                                                  Nom :
-                                                  </Form.Label>
-                                                  <Col sm={10}>
-                                              <Form.Control type="nom"  />
-                                                  </Col>
-                                          </Form.Group>
-
-
-                                          <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                              <Form.Label column sm={2}>
-                                                  Matricule :
-                                                  </Form.Label>
-                                                  <Col sm={10}>
-                                              <Form.Control type="email" />
-                                                  </Col>
-                                          </Form.Group>
-          
-          
-                                          <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                              <Form.Label column sm={2}>
-                                                  Email :
-                                                  </Form.Label>
-                                                  <Col sm={10}>
-                                              <Form.Control type="email" />
-                                                  </Col>
-                                          </Form.Group>
-          
-          
-                                          <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                                              <Form.Label column sm={2}>
-                                                  Matière :
-                                              </Form.Label>
-                                                  <Col sm={10}>
-                                                <Form.Select defaultValue="Niveau" onClick = {show} className="form-control"
-                                             as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}>
-                                                  <option>Cybersécurité Clouding</option>
-                                                  <option>Big Data</option>
-                                                  <option>Devops</option>
-                                                  <option>BlockChain</option>
-                                                  </Form.Select>
-                                                  </Col>
-                                          </Form.Group>
-          
+            <Button variant="danger" as="input" type="button" value="Annuler" className="mt-5" />{' '}&nbsp;
+ 
+            <Button variant="primary" as="input" type="button" value="Modifier" className="mt-5" />{' '}&nbsp;
                                           
-                                          <Form.Group as={Row} controlId="formGridState">
-                                            <Form.Label column sm={2}>
-                                                Niveau :
-                                            </Form.Label>
-                                            <Col sm={10}> 
-                                            <Form.Select defaultValue="Niveau"  >
-                                             <option>1</option>
-                                             <option>2</option>
-                                             <option>3</option>
-                                             <option>4</option>
-                                             <option>5</option>
-                                            </Form.Select>
-                                            </Col> 
-                                          </Form.Group>
-                                          
-
-                                         
-                                            
-                                          
-                                              <Button variant="danger" as="input" type="button" value="Annuler" className="mt-5" />{' '}&nbsp;
-                                      
-                                              <Button variant="success" as="input" type="submit" value="s'incrire" className="mt-5" />{' '}&nbsp;
-          
-          
-                                      </div>
-                                      
-          
-                                  </Form>
-                              </content>
-          
-                          </Container>
-                      
-                      </Row>
-          
-                  </Navbar>
-          
-              
-          
-              );
-
-
-
+            <Button variant="success" as="input" type="submit" value="Enregistrer" className="mt-5" />{' '}&nbsp;
+        </div>
+ 
+ 
+ 
+      </div>
+         
+    </div>
+    </div>     
+ 
+  )
 }
