@@ -53,7 +53,7 @@ export default function InscriptionEtudiant() {
 
     async function save() {
         add()
-        let res = await axios.post('http://localhost:3100/signup/', form)
+       await axios.post("http://localhost:3100/signup/", form).then((res) => {
         console.log(res)
         if (res.status === 201) {
             setForm('')
@@ -65,7 +65,8 @@ export default function InscriptionEtudiant() {
             setMessage("Some error occured");
         }
        
-    }
+    })
+}
 
     function add() {
         form.prenom = inputPrenom
