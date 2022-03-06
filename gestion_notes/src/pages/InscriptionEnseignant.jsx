@@ -1,7 +1,9 @@
 import { Col, Container, Row, Navbar, Form, Button, Nav, } from 'react-bootstrap'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import {Link, useParams, useLocation, useNavigate} from 'react-router-dom'
+import {Link, useParams, useNavigate} from 'react-router-dom'
+import NavBarGestionNotes from '../components/AppNavbar/NavBarGestionNotes';
+
 
 export default function InscriptionEnseignant(){
     
@@ -14,7 +16,6 @@ export default function InscriptionEnseignant(){
     const [inputPassword, setInputPassword] = useState('')
     const [message, setMessage] = useState("");
      const [niveaux, setNiveaux] = useState([])
-     const [field, setField] = useState([])
 
     const navigate = useNavigate()
 
@@ -121,7 +122,11 @@ export default function InscriptionEnseignant(){
                              <content contentContainerStyle={{flexGrow : 1, justifyContent : 'center'}}> 
                              
                              
-                                  <Form className='INSCRIPTION' >
+                                  <Form className='INSCRIPTION'  onSubmit={
+                                (e) => {
+                                    e.preventDefault()
+                                    save()
+                                } }>
                     
                                       <h1>ESPACE INSCRIPTION ENSEIGNANT</h1>
                               
@@ -135,7 +140,7 @@ export default function InscriptionEnseignant(){
           
                                           <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                                               <Form.Label column sm={2}>
-                                                  PrÃ©nom :
+                                                  Prénom :
                                               </Form.Label>
                                                   <Col sm={10}>
                                                   <Form.Control type="text" required  
@@ -163,10 +168,10 @@ export default function InscriptionEnseignant(){
                                                   </Col>
                                           </Form.Group>
 
-
+          
                                           <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                                               <Form.Label column sm={2}>
-                                                  Matricule :
+                                                  Email :
                                                   </Form.Label>
                                                   <Col sm={10}>
                                               <Form.Control type="email" required
@@ -178,10 +183,10 @@ export default function InscriptionEnseignant(){
                                                   </Col>
                                           </Form.Group>
           
-          
-                                          <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
+                                            
+                                             <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                                               <Form.Label column sm={2}>
-                                                  Email :
+                                                  Password :
                                                   </Form.Label>
                                                   <Col sm={10}>
                                               <Form.Control type="password" required
@@ -193,18 +198,17 @@ export default function InscriptionEnseignant(){
                                                   </Col>
                                           </Form.Group>
           
-          
                                           <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
                                               <Form.Label column sm={2}>
-                                                  MatiÃ¨re :
+                                                  Matière :
                                               </Form.Label>
                                                   <Col sm={10}>
-                                                <Form.Select defaultValue="Niveau" className="form-control"
-                                             as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}>
-                                                  <option>CybersÃ©curitÃ© Clouding</option>
-                                                  <option>Big Data</option>
-                                                  <option>Devops</option>
-                                                  <option>BlockChain</option>
+                                                <Form.Select defaultValue="Matiere"  className="form-control"
+                                             as="select" multiple 
+                                             value={courses} onChange={e => 
+                                             setCourse([].slice.call(e.target.selectedOptions).map(item => item.value))}>
+                                                
+                                               { displayCourse }
                                                   </Form.Select>
                                                   </Col>
                                           </Form.Group>
@@ -215,23 +219,25 @@ export default function InscriptionEnseignant(){
                                                 Niveau :
                                             </Form.Label>
                                             <Col sm={10}> 
-                                            <Form.Select defaultValue="Niveau"  >
-                                             <option>1</option>
-                                             <option>2</option>
-                                             <option>3</option>
-                                             <option>4</option>
-                                             <option>5</option>
+                                            <Form.Select defaultValue="Niveau" 
+                                             value={inputNiveau}
+                                            onChange={
+                                                (e) => setInputNiveau(e.target.value)
+                                        }
+                                            >
+                                            { displayNiveaux }
+                                           
                                             </Form.Select>
                                             </Col> 
                                           </Form.Group>
-                                          
+                                          <div className="message">
+                                        {
+                                        message ? <p>{message}</p> : null
+                                    }</div>
 
-                                         
-                                            
-                                          
-                                              <Button variant="danger" as="input" type="button" value="Annuler" className="mt-5" />{' '}&nbsp;
+                                    <Button variant="danger" as="input" type="button"  onClick = {reset} value="Annuler" className="mt-5" />{' '}&nbsp;
                                       
-                                              <Button variant="success" as="input" type="submit" value="s'incrire" className="mt-5" />{' '}&nbsp;
+                                    <Button variant="success" as="input" type="submit" value="s'incrire" className="mt-5" />{' '}&nbsp;
           
           
                                       </div>
@@ -250,4 +256,6 @@ export default function InscriptionEnseignant(){
           
               );
 
-        }
+
+
+}
