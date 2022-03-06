@@ -21,14 +21,6 @@ export default function Login(props) {
 
   
 
-//      async function getInfosForOneTeacher2() {
-//         axios.get('http://localhost:3100/authchecker').then((datas) => {
-//         console.log("HOME PAGE DATA" ,datas)
-//         console.log("DATA HOME " , datas.data)
-//     })
-
-// }
-
     async function login() {
         add()
         await axios.post("http://localhost:3100/signinuser/", form).then(res => {

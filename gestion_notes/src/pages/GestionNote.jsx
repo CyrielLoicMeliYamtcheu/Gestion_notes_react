@@ -77,16 +77,6 @@ export default function GestionNote() {
     })
 
 
-    // async function getInfosForOneTeacher() {
-    //     const datas = await axios.get('http://localhost:3100/authcheckerEns')
-    //     console.log(datas.data)
-    //     console.log(datas.Enseignant)
-    //     console.log(datas.Enseignant.email)
-    //     if (datas.data !== null)
-    //         setInfosTeacher(datas.Enseignant.email)
-    // }
-
-
     async function getEtudiantByNiveauSpecialite() {
 
         await axios.get('http://localhost:3100/etudiants/', {

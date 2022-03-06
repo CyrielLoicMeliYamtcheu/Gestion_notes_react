@@ -1,25 +1,16 @@
 import axios from 'axios'
 import {useState, useEffect} from 'react'
-import {Link, useParams, useLocation, useNavigate} from 'react-router-dom'
+import {Link, useParams, useNavigate} from 'react-router-dom'
 import Carousel from 'react-bootstrap/Carousel'
-import {Container, Col, Row, Button} from 'react-bootstrap'
+import {Container, Col, Row} from 'react-bootstrap'
 import Card from 'react-bootstrap/Card'
 
 
 
-export default function HomePage(props) { /*
-  const id = useParams(); 
-  console.log("param", props?.match?.params); 
-  console.log("param 2", id);
-
-*/
+export default function HomePage(props) { 
+ 
     const [infosTeacher, setInfosTeacher] = useState({})
    
-
-    // const userEns = useLocation();
-    // const {id} = this.props.route.params;
-    // const navigate = useNavigate()
-
     useEffect(() => {
 
         getInfosForOneTeacher()
