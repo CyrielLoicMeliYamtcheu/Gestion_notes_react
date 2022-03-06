@@ -1,19 +1,17 @@
-import { Container, Navbar, Nav } from 'react-bootstrap'
-//import {logo} from './logo.jpg'
-
+import {Alert} from 'react-bootstrap'
 export default function Footer() {
+    return (
 
-  return(
-    <div>
-    FOOTER
-     
-           <img
-      className="d-block w-100"
-//      src={logo}
-      alt="First slide"
-    />
 
-    </div>
-  )
+        <Alert variant="success">
+            <Alert.Heading>
+                <center>Copyright 2022 ecole-it
+                </center>
 
+            </Alert.Heading>
+
+
+        </Alert>
+
+    )
 }

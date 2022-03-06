@@ -19,33 +19,15 @@ export default function Login(props) {
     const myStorage = window.sessionStorage;
     const navigate = useNavigate()
 
-    async function getInfosForOneTeacher(data) { // const datas = await axios.get('http://localhost:3100/authcheckerEns', {params : {query : data}})
-        await axios.get('http://localhost:3100/authchecker', {
-            params: {
-                user: data
-            }
-        }).then((datas) => {
-            console.log("HELLO ", datas)
-            console.log("BONJOUR ", datas.data)
-        })
-    }
+  
 
-     async function getInfosForOneTeacher2() {
-      // const data = localStorage.getItem("apiRes1")
-      // let data = localStorage.getItem("apiRes1");
-      //  data = JSON.parse(data);
+//      async function getInfosForOneTeacher2() {
+//         axios.get('http://localhost:3100/authchecker').then((datas) => {
+//         console.log("HOME PAGE DATA" ,datas)
+//         console.log("DATA HOME " , datas.data)
+//     })
 
-      //  console.log("data userEns" , data)
-
-      //  const datas = await axios.get('http://localhost:3100/authcheckerEns/6218c00812faa2772c5a1dea', {param: {session: data}})
-        axios.get('http://localhost:3100/authchecker').then((datas) => {
-
-        console.log("HOME PAGE DATA" ,datas)
-        console.log("DATA HOME " , datas.data)
-
-    })
-
-}
+// }
 
     async function login() {
         add()
@@ -60,7 +42,6 @@ export default function Login(props) {
                 setMessage("User Login successfully");
                 if (res.data.user.role === "Enseignant") {
                     sessionStorage.setItem('user', JSON.stringify(res.data.user));
-
                     navigate('/')
                 } else if (res.data.user.role === "Etudiant") {
                     sessionStorage.setItem('user', JSON.stringify(res.data.user));
@@ -72,7 +53,6 @@ export default function Login(props) {
                 setMessage("Some error occured");
             }
         })
-
     }
 
 
@@ -86,9 +66,9 @@ export default function Login(props) {
         setInputPassword("")
     }
 
+
     return (
         <Container>
-
             <h1 className="shadow-sm text-success mt-5 p-3 text-center rounded">ESPACE DE CONNEXION</h1>
             <Row className="mt-5">
                 <Col lg ={5}
@@ -105,7 +85,7 @@ export default function Login(props) {
                     }>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email"
+                            <Form.Control type="email" placeholder="Enter email" required
                                 value={inputEmail}
                                 onChange={
                                     (e) => setInputEmail(e.target.value)
@@ -114,7 +94,7 @@ export default function Login(props) {
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password"
+                            <Form.Control type="password" placeholder="Password" required
                                 value={inputPassword}
                                 onChange={
                                     (e) => setInputPassword(e.target.value)

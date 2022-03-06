@@ -1,33 +1,30 @@
-import { Link } from 'react-router-dom'  
-import {Nav} from 'react-bootstrap'
-import { useState, useEffect, useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'  
+import {Nav, Button} from 'react-bootstrap'
+import { useState, useEffect, useContext  } from 'react'
 import axios from 'axios';
 import NavContext from '../ComponentContext';
 
-export default function NavBar({etudiant, enseignant}){
+export default function NavBar(){
 
     const [user, setUser] = useState("")
-   
-useEffect(() => {
-     userConnecte()
-  
-}, [])
+    const navigate = useNavigate()
 
     // // fonction de verification d'un user connecté
      function userConnecte(){
+       console.log("Running");
         let data = sessionStorage.getItem('user');
         data = JSON.parse(data)
         console.log(data)
-        console.log(data.nom)
-        console.log(data.prenom)
-        console.log(data.role)
+        console.log(data?.nom)
+        console.log(data?.prenom)
+        console.log(data?.role)
 
         
       // let data = "Etudiant"
-        if(data.role === "Etudiant"){
+        if(data?.role === "Etudiant"){
                 setUser("etudiant")
                  console.log("je suis connecté en tant que etudiant")
-        }else if(data.role === "Enseignant"){
+        }else if(data?.role === "Enseignant"){
                 setUser("enseignant")
                 console.log("je suis connecté en tant que enseignant")
         }else{
@@ -37,16 +34,10 @@ useEffect(() => {
         
     }
 
-    function show(user){
-        if(user === "enseignant"){
-            return (<Nav1 />)
-        }else if(user === "etudiant"){
-            return (<Nav2 />)
-        }else{
-           return (<Nav3 />)
-        }
-
-    }
+    
+    useEffect(() => {
+        userConnecte()
+    }, [user])
 
 
     function Nav1(){
@@ -63,7 +54,12 @@ useEffect(() => {
             </li>
         
             <li class="nav-item">
-                <Link class="nav-link" to="/login">Se deconnecter</Link>
+                
+                <Button onClick={() => { 
+                   sessionStorage.removeItem('user');
+                   setUser("");
+                   navigate('/login')
+                }}>Se deconnecter </Button>
             </li>
             </>
         )
@@ -78,11 +74,15 @@ useEffect(() => {
 
               <li class="nav-item">
                
-                  <Link class="nav-link" to="/consulter-notes">Consulter Notes</Link>
+                  <Link class="nav-link" to="/etudiant">Consulter Notes</Link>
                 </li>
         
                 <li class="nav-item">
-                  <Link class="nav-link" to="/login">Se deconnecter</Link>
+                  <Button onClick={() => { 
+                   sessionStorage.removeItem('user');
+                   setUser("");
+                   navigate('/login')
+                }}>Se deconnecter </Button>
                 </li>
             </>
         )
@@ -119,9 +119,7 @@ useEffect(() => {
             </button>  
             <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
               <ul class="navbar-nav">
-
-        { show(user) }
-        
+                {!user ? <Nav3 /> : ( user === "enseignant" ? <Nav1 /> : <Nav2 />) }
               </ul>
             </div>
           </div>

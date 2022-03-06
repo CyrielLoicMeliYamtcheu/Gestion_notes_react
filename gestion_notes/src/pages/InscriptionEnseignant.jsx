@@ -61,6 +61,7 @@ export default function InscriptionEnseignant(){
     }) 
 
       async function save() {
+        
         add()
         let res = await axios.post('http://localhost:3100/signupEnseignant/', form)
         console.log(res)
@@ -137,7 +138,12 @@ export default function InscriptionEnseignant(){
                                                   PrÃ©nom :
                                               </Form.Label>
                                                   <Col sm={10}>
-                                                  <Form.Control type="prÃ©nom"  />
+                                                  <Form.Control type="text" required  
+                                                   value={inputPrenom}
+                                                    onChange={
+                                                        (e) => setInputPrenom(e.target.value)
+                                                    }
+                                                  />
                                                   </Col>
                                           </Form.Group>
           
@@ -147,7 +153,13 @@ export default function InscriptionEnseignant(){
                                                   Nom :
                                                   </Form.Label>
                                                   <Col sm={10}>
-                                              <Form.Control type="nom"  />
+                                              <Form.Control type="text"  required
+                                                 value={inputNom}
+                                            onChange={
+                                                (e) => setInputNom(e.target.value)
+                                            }
+                                              
+                                              />
                                                   </Col>
                                           </Form.Group>
 
@@ -157,7 +169,12 @@ export default function InscriptionEnseignant(){
                                                   Matricule :
                                                   </Form.Label>
                                                   <Col sm={10}>
-                                              <Form.Control type="email" />
+                                              <Form.Control type="email" required
+                                                 value={inputEmail}
+                                            onChange={
+                                                (e) => setInputEmail(e.target.value)
+                                            }
+                                              />
                                                   </Col>
                                           </Form.Group>
           
@@ -167,7 +184,12 @@ export default function InscriptionEnseignant(){
                                                   Email :
                                                   </Form.Label>
                                                   <Col sm={10}>
-                                              <Form.Control type="email" />
+                                              <Form.Control type="password" required
+                                                 value={inputPassword}
+                                            onChange={
+                                                (e) => setInputPassword(e.target.value)
+                                            }
+                                              />
                                                   </Col>
                                           </Form.Group>
           
