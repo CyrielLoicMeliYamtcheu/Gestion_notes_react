@@ -267,9 +267,9 @@ export default function GestionNote() {
 
 
                 <Button type="submit"
-                    onClick={
-                        navigate('/')
-                    }
+                   
+                        as={Link} to={`/liste-etudiant`}
+                    
                     className="btn btn-success w-100">Enregistrer</Button>
             </div>
         </div>

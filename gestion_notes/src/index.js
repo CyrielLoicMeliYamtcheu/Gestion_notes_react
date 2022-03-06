@@ -37,6 +37,7 @@ ReactDOM.render(
           </Col>
         </Row>
       </Container>
+      <br></br>
       <Footer />
     </Router>
   </React.StrictMode>,

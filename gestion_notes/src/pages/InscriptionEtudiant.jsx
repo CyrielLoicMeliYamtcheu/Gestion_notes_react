@@ -24,7 +24,6 @@ export default function InscriptionEtudiant() {
     const [inputPassword, setInputPassword] = useState('')
     const [inputImage, setInputImage] = useState(null)
     const [message, setMessage] = useState("");
-    // const [fileName, setFileName] = useState("Upload Boundary File");
     const [niveaux, setNiveaux] = useState([])
     const [specialites, setSpecialites] = useState([])
 
@@ -45,15 +44,15 @@ export default function InscriptionEtudiant() {
     function handleClick() {
         let min = 10000;
         let max = 90000;
-        // let rand =  min + (Math.random() * (max-min))
         let rand = (Math.floor(Math.random() * min) + max).toString()
         setInputMatricule(rand)
 
     }
 
     async function save() {
+        console.log("helloooo")
         add()
-        let res = await axios.post('http://localhost:3100/signup/', form)
+        let res = await axios.post('http://localhost:3100/signup', form)
         console.log(res)
         if (res.status === 201) {
             setForm('')
@@ -84,7 +83,6 @@ export default function InscriptionEtudiant() {
         setInputNom("")
         setInputEmail("")
         setInputPassword("")
-        setInputMatricule("")
         setInputImage(null)
         
     }
@@ -168,7 +166,7 @@ export default function InscriptionEtudiant() {
                                         Prenom
                                     </Form.Label>
                                     <Col sm={10}>
-                                        <Form.Control type="text" placeholder="Prenom"
+                                        <Form.Control type="text" placeholder="Prenom" required
                                             value={inputPrenom}
                                             onChange={
                                                 (e) => setInputPrenom(e.target.value)
@@ -185,7 +183,7 @@ export default function InscriptionEtudiant() {
                                         Nom
                                     </Form.Label>
                                     <Col sm={10}>
-                                        <Form.Control type="text" placeholder="Nom"
+                                        <Form.Control type="text" placeholder="Nom" required
                                             value={inputNom}
                                             onChange={
                                                 (e) => setInputNom(e.target.value)
@@ -202,7 +200,7 @@ export default function InscriptionEtudiant() {
                                         Email
                                     </Form.Label>
                                     <Col sm={10}>
-                                        <Form.Control type="email" placeholder="Email"
+                                        <Form.Control type="email" placeholder="Email" required
                                             value={inputEmail}
                                             onChange={
                                                 (e) => setInputEmail(e.target.value)
@@ -219,7 +217,7 @@ export default function InscriptionEtudiant() {
                                         Password
                                     </Form.Label>
                                     <Col sm={10}>
-                                        <Form.Control type="password" placeholder="password"
+                                        <Form.Control type="password" placeholder="password" required
                                             value={inputPassword}
                                             onChange={
                                                 (e) => setInputPassword(e.target.value)
@@ -348,34 +346,3 @@ export default function InscriptionEtudiant() {
     );
 }
 
-
-/*  
-
-            <div bg="light" expand="lg" class="navbar navbar-expand-lg navbar-light bg-light">
-            <Row type="flex" justify="center" align="center">
-   </Row>
-
-        </div>
-
-
-                                        
-                                    <Form.File
-                                        type="file"
-                                        className="custom-file-label"
-                                        id="inputGroupFile01"
-                                        label={inputImage}
-                                        onChange={(e) => setInputImage(e.target.files[0].name)}
-                                        custom
-                                    />
-
-
-    
-                                        <div>
-                                            <input class="form-control form-control-lg" id="formFileLg" type="file"
-                                            value={inputImage}
-                                            onChange={(e) => setInputImage(e.target.value)}
-                                            ></input>
-                                            <label for="formFileLg" class="form-label"></label>
-                                        </div>
-
-                                    */

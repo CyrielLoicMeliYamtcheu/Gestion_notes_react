@@ -62,6 +62,7 @@ export default function InscriptionEnseignant(){
     }) 
 
       async function save() {
+        
         add()
         let res = await axios.post('http://localhost:3100/signupEnseignant/', form)
         console.log(res)
@@ -142,7 +143,7 @@ export default function InscriptionEnseignant(){
                                                   Prénom :
                                               </Form.Label>
                                                   <Col sm={10}>
-                                                  <Form.Control type="prénom"  
+                                                  <Form.Control type="text" required  
                                                    value={inputPrenom}
                                                     onChange={
                                                         (e) => setInputPrenom(e.target.value)
@@ -157,7 +158,7 @@ export default function InscriptionEnseignant(){
                                                   Nom :
                                                   </Form.Label>
                                                   <Col sm={10}>
-                                              <Form.Control type="nom"  
+                                              <Form.Control type="text"  required
                                                  value={inputNom}
                                             onChange={
                                                 (e) => setInputNom(e.target.value)
@@ -173,7 +174,7 @@ export default function InscriptionEnseignant(){
                                                   Email :
                                                   </Form.Label>
                                                   <Col sm={10}>
-                                              <Form.Control type="email" 
+                                              <Form.Control type="email" required
                                                  value={inputEmail}
                                             onChange={
                                                 (e) => setInputEmail(e.target.value)
@@ -188,7 +189,7 @@ export default function InscriptionEnseignant(){
                                                   Password :
                                                   </Form.Label>
                                                   <Col sm={10}>
-                                              <Form.Control type="password" 
+                                              <Form.Control type="password" required
                                                  value={inputPassword}
                                             onChange={
                                                 (e) => setInputPassword(e.target.value)
