@@ -279,19 +279,7 @@ export default function Etudiant() {
 
                             {displayCoursebyModule}
 
-                            <tbody>
-                                <tr>
-                                    <th scope="col" colSpan="6" className="table-success">block-A Appréhender son environnement et son métier</th>
-                                </tr>
-                                <tr>
-                                    <th scope="col">4AS854</th>
-                                    <th scope="col">Angular JS</th>
-                                    <th scope="col">10.5</th>
-                                    <th scope="col">2</th>
-                                    <th scope="col">passable</th>
-                                    <th scope="col">M. Pierre thomas</th>
-                                </tr>
-                            </tbody>
+                          
                         </table>
                     </div>
                 </div>

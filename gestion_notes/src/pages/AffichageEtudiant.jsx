@@ -53,7 +53,6 @@ export default function AffichageEtudiant(){
 
 
     async function findStudent(search){
-        alert(search)
         await axios.get('http://localhost:3100/search/', {params : {rech : search}}).then((datas) => {
             if(datas.data !== null){
                 console.log(datas.data)
@@ -75,7 +74,7 @@ export default function AffichageEtudiant(){
                 <td>{item.nom}</td>
                 <td>{item.specialite}</td>
                 <td>{item.niveau.nom}</td>
-                <td> <Button variant="success" oncliCk = {deleteStudent(item)}  as="input" type="submit" value="Supprimer" className="mt-5" />{' '}&nbsp;
+                <td> <Button variant="success" onClick = {() => deleteStudent(item)}  as="input" type="submit" value="Supprimer" className="mt-5" />{' '}&nbsp;
                 </td>
                 </tr>
             </tbody>
@@ -128,17 +127,7 @@ export default function AffichageEtudiant(){
 
     {displayEtudiant}
 
-    <tbody>
-    <tr>
-      <td>EIT0012022</td>
-      <td>Waly</td>
-      <td>Ebongom</td>
-      <td>Cybersécurité clouding</td>
-      <td>ebongomwaly@gmail.com</td>
-      <td> <Button variant="success" as="input" type="submit" value="Supprimer" className="mt-5" />{' '}&nbsp;
-      </td>
-    </tr>
-  </tbody>
+   
              
 </Table>
 

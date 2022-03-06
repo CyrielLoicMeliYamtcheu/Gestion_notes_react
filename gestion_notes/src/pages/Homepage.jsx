@@ -6,6 +6,7 @@ import {Container, Col, Row, Button} from 'react-bootstrap'
 import Card from 'react-bootstrap/Card'
 
 
+
 export default function HomePage(props) { /*
   const id = useParams(); 
   console.log("param", props?.match?.params); 
@@ -13,7 +14,7 @@ export default function HomePage(props) { /*
 
 */
     const [infosTeacher, setInfosTeacher] = useState({})
-
+   
 
     // const userEns = useLocation();
     // const {id} = this.props.route.params;
@@ -35,7 +36,7 @@ export default function HomePage(props) { /*
         console.log(data.nom)
         console.log(data.prenom)
         console.log(data.role)
-
+       
     }
 
 
@@ -132,6 +133,7 @@ export default function HomePage(props) { /*
             </div>
 
         </div>
+      
     )
 
 }

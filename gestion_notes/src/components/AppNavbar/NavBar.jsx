@@ -7,6 +7,9 @@ export default function NavBar(){
 
     const [user, setUser] = useState("")
     const navigate = useNavigate()
+    const [nom, setNom] = useState("")
+    const [prenom, setPrenom] = useState("")
+
 
     // // fonction de verification d'un user connecté
      function userConnecte(){
@@ -17,6 +20,9 @@ export default function NavBar(){
         console.log(data?.nom)
         console.log(data?.prenom)
         console.log(data?.role)
+        setNom(data.nom)
+        setPrenom(data.prenom)
+
 
         
       // let data = "Etudiant"
@@ -109,15 +115,17 @@ export default function NavBar(){
         height: '60px',
         color: '#ffffff'
       }}>
+        
           <div class="container-fluid">
           <Link className="navbar-brand" to="/">
             <img src="./logo.jpg" alt="..." height="50"/>
-            </Link>
+            </Link><h5> BIENVENUE Mr {prenom} {nom} </h5>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>  
             <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
               <ul class="navbar-nav">
+                
                 {!user ? <Nav3 /> : ( user === "enseignant" ? <Nav1 /> : <Nav2 />) }
               </ul>
             </div>
