@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import {Nav, Button} from 'react-bootstrap'
 import { useState, useEffect, useContext  } from 'react'
 import axios from 'axios';
-import NavContext from '../ComponentContext';
 
 export default function NavBar(){
 
