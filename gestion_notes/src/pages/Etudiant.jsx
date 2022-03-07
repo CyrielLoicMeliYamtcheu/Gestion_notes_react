@@ -107,15 +107,15 @@ export default function Etudiant() {
         let data = sessionStorage.getItem('user');
         data = JSON.parse(data)
         console.log(data)
-        console.log("id etudiant ", data.id)
-        console.log("nom etudiant ", data.nom)
-        console.log("prenom etudiant ", data.prenom)
-        console.log("role ", data.role)
-        if (data.role === "Etudiant") {
+        console.log("id etudiant ", data?.id)
+        console.log("nom etudiant ", data?.nom)
+        console.log("prenom etudiant ", data?.prenom)
+        console.log("role ", data?.role)
+        if (data?.role === "Etudiant") {
             console.log("je suis étudiant")
 
         // 621d5a37e135bfbfd52681fa
-        await axios.get('http://localhost:3100/etudiant/'+ data.id).then((datas) => {
+        await axios.get('http://localhost:3100/etudiant/'+ data?.id).then((datas) => {
 
             console.log("Etudiant ", datas)
             if (datas.data !== null) {

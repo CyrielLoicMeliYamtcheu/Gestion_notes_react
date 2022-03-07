@@ -179,22 +179,7 @@ export default function GestionNote() {
 
     })
 
-    // async function save_note() {
-
-    //     let res = await axios.post('http://localhost:3100/note/',)
-    //     console.log(res)
-    //     if (res.status === 201) {
-
-    //         setMessage("User created successfully");
-    //         navigate('/login')
-    //     } else {
-
-    //         setMessage("Some error occured");
-    //     }
-
-    // }
-
-
+    
     return (
         <div className='mt-5'>
             <NavBarGestionNotes nom="GESTION DES NOTES"/>

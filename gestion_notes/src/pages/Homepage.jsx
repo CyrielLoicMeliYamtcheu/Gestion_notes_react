@@ -23,10 +23,10 @@ export default function HomePage(props) {
         let data = sessionStorage.getItem('user');
         data = JSON.parse(data)
         console.log(data)
-        console.log(data.id)
-        console.log(data.nom)
-        console.log(data.prenom)
-        console.log(data.role)
+        console.log(data?.id)
+        console.log(data?.nom)
+        console.log(data?.prenom)
+        console.log(data?.role)
        
     }
 

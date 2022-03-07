@@ -14,7 +14,7 @@ import {Container, Row, Col} from 'react-bootstrap'
 import Etudiant from './pages/Etudiant';
 import NavBar from './components/AppNavbar/NavBar';
 import AffichageEtudiant from './pages/AffichageEtudiant'
-import UpdateNotes from './pages/UpdateNotes'
+import UpdateEtudiant from './pages/UpdateEtudiant'
 
 
 ReactDOM.render(
@@ -31,7 +31,7 @@ ReactDOM.render(
                 <Route path="/inscriptionEt" element={<InscriptionEtudiant />} />
                  <Route path="/gerer-notes" element={<GestionNote />} />
                   <Route path="/liste-etudiant" element={<AffichageEtudiant />} /> 
-                  <Route path="/update-etudiant" element={<UpdateNotes />} />      
+                  <Route path="/update-etudiant" element={<UpdateEtudiant />} />      
                  <Route path="/etudiant" element={<Etudiant />} />
             </Routes>
           </Col>

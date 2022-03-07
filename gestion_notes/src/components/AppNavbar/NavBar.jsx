@@ -20,8 +20,8 @@ export default function NavBar(){
         console.log(data?.nom)
         console.log(data?.prenom)
         console.log(data?.role)
-        setNom(data.nom)
-        setPrenom(data.prenom)
+        setNom(data?.nom)
+        setPrenom(data?.prenom)
 
 
         
@@ -81,6 +81,12 @@ export default function NavBar(){
                
                   <Link class="nav-link" to="/etudiant">Consulter Notes</Link>
                 </li>
+                
+                 <li class="nav-item">
+               
+                  <Link class="nav-link" to="/update-etudiant">Modifier parametre</Link>
+                </li>
+                 
         
                 <li class="nav-item">
                   <Button onClick={() => { 
